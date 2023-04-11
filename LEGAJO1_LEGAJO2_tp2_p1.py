@@ -7,3 +7,47 @@ Las mayúsculas deben convertirse en minúsculas antes de encriptar, el texto en
 En este caso encriptaremos sólo las 26 letras del alfabeto inglés.
 El programa no debe fallar catastróficamente ante entradas insperadas del usuario, archivos vacíos o inexistentes, etc.
 '''
+
+def cifrado_vi (texto:str,clave:str)->str:
+    '''
+    Utilizo el metodo de cifrado de Vigenère
+    tomo una cadena de texto y una clave y devuelvo el texto encriptado
+    '''
+    texto=list(texto)
+    clave=list(clave)
+    #cambio los caracteres de clave a numeros segun el cifrado
+    for j in range(len(clave)):
+        clave[j]=ord(clave[j])-97
+    #cambio los caracteres del texto a numeros, le sumo el numero
+    #de clave en la posicion correspondiente y transformo a char de vuelta
+    for i in range(len(texto)-1):
+        if not texto[i]==" ":
+            texto[i]=ord(texto[i])-97
+            texto[i]=chr(((texto[i]+clave[i%len(clave)-1])%26)+97)
+    return "".join(texto)
+
+
+#Pido la ruta del archivo a encriptar y lo leo 
+#Pido la clave a utilizar para encriptar
+text_dir=input("Ingrese la ruta del archivo a encriptar: ")
+clave=input("Ingrese la clave a utilizar: ")
+##chequear no se puede usar isalpha() pues solo alfabeto ingles
+if not(clave.isalpha()):
+    print("La clave solo puede contener letras del alfabeto inglés")
+    exit(1)
+nombre_encriptado=input("Ingrese el nombre del archivo encriptado: ")
+
+archivo=open(text_dir, "r")
+#guardo el contenido del archivo en text
+text=archivo.read()
+archivo.close()
+
+#paso la cadena de texto a minusculas
+text=text.lower()
+cifrado=cifrado_vi(text,clave)
+
+#escribo lo encriptado en un archivo con el nombre_encriptado
+new_file=open(nombre_encriptado,"w")
+new_file.write(cifrado)
+new_file.close()
+
