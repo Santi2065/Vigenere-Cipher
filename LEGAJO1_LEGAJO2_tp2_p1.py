@@ -12,12 +12,21 @@ def cifrado_vi (texto:str,clave:str)->str:
     '''
     Utilizo el metodo de cifrado de Vigenère
     tomo una cadena de texto y una clave y devuelvo el texto encriptado
+
+    input: 
+        texto:str - texto a encriptar
+        clave:str - contraseña para encriptar
+
+    output:
+        texto_encriptado:str - texto ya encriptado
     '''
     texto=list(texto)
     clave=list(clave)
+
     #cambio los caracteres de clave a numeros segun el cifrado
     for j in range(len(clave)):
         clave[j]=ord(clave[j])-97
+    
     #cambio los caracteres del texto a numeros, le sumo el numero
     #de clave en la posicion correspondiente y transformo a char de vuelta
     for i in range(len(texto)-1):
@@ -27,27 +36,28 @@ def cifrado_vi (texto:str,clave:str)->str:
     return "".join(texto)
 
 
-#Pido la ruta del archivo a encriptar y lo leo 
-#Pido la clave a utilizar para encriptar
+#Pido la ruta del archivo a encriptar y lo guardo
 text_dir=input("Ingrese la ruta del archivo a encriptar: ")
+
+#Pido la clave a utilizar para encriptar
 clave=input("Ingrese la clave a utilizar: ")
-##chequear no se puede usar isalpha() pues solo alfabeto ingles
+
+#chequear si el texto utiliza alfabeto ingles
 if not(clave.isalpha()):
     print("La clave solo puede contener letras del alfabeto inglés")
     exit(1)
+
+#pido el nombre del archivo a crear o editar con el texto encriptado
 nombre_encriptado=input("Ingrese el nombre del archivo encriptado: ")
 
-archivo=open(text_dir, "r")
-#guardo el contenido del archivo en text
-text=archivo.read()
-archivo.close()
+with open(text_dir, "r") as archivo:
+    #guardo el contenido del archivo en text
+    text=archivo.read()
 
 #paso la cadena de texto a minusculas
 text=text.lower()
 cifrado=cifrado_vi(text,clave)
 
 #escribo lo encriptado en un archivo con el nombre_encriptado
-new_file=open(nombre_encriptado,"w")
-new_file.write(cifrado)
-new_file.close()
-
+with open(nombre_encriptado,"w") as new_file:
+    new_file.write(cifrado)
