@@ -7,10 +7,6 @@ ENGLISH_LETTERS_FRECUENCIES = {
     "y": 0.01974, "z": 0.00075
 }
 
-
-width = 0.25  # the width of the bars
-multiplier = 0
-
 fig, ax = plt.subplots()
 ax.bar(list(ENGLISH_LETTERS_FRECUENCIES.keys()),(ENGLISH_LETTERS_FRECUENCIES.values()), label=list(ENGLISH_LETTERS_FRECUENCIES.keys()))
 ax.set_ylabel('Frecuencia')
