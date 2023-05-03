@@ -26,10 +26,9 @@ def descifrado_vi (texto:str,clave:str)->str:
     # Cambio los caracteres del texto a numeros, le resto el numero
     # de clave en la posicion correspondiente y transformo a char de vuelta.
     for i in range(len(texto)-1):
-        if not texto[i] == " ":
-            if not texto[i] == "\n":
-                texto[i] = ord(texto[i]) - 97
-                texto[i] = chr(((texto[i] - clave[i % len(clave) - 1]) % 26) + 97)
+        if texto[i].isalpha() and texto[i]!='ñ':
+            texto[i] = ord(texto[i]) - 97
+            texto[i] = chr(((texto[i] - clave[i % len(clave) - 1]) % 26) + 97)
     return "".join(texto)    
 
 def main():
@@ -50,13 +49,7 @@ def main():
     # Guardo el contenido del archivo en text.
     with open(text_dir, "r") as archivo:
         text = archivo.read()
-    
-    # Chequear si el texto utiliza alfabeto ingles.
-    for letra in text:
-        if not letra.isalpha() and not letra==" " and not letra=="\n":
-            print("El texto solo puede contener letras del alfabeto inglés")
-            exit(1)
-    
+   
     # Desencripto el texto.
     cifrado = descifrado_vi(text,clave)
 
@@ -66,4 +59,3 @@ def main():
 
 if __name__=="__main__":
     main()
-    
