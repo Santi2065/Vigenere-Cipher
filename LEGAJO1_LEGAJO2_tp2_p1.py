@@ -36,7 +36,7 @@ def cifrado_vi (texto: str, clave: str)-> str:
             texto[i] = chr(((texto[i]+clave[i%len(clave)-1])%26)+97)
     return "".join(texto)
 
-if __name__ == "__main__":
+def main():
     # Pido la ruta del archivo a encriptar y lo guardo.
     text_dir = input("Ingrese la ruta del archivo a encriptar: ")
 
@@ -61,3 +61,6 @@ if __name__ == "__main__":
     # Escribo lo encriptado en un archivo con el nombre_encriptado.
     with open(nombre_encriptado,"w") as new_file:
         new_file.write(cifrado)
+        
+if __name__ == "__main__":
+    main()
