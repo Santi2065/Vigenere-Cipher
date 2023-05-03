@@ -8,6 +8,7 @@ ENGLISH_LETTERS_FRECUENCIES = {
 }
 
 def creador_diccionario():
+        
     # Hacer diccionario que cuente las veces que aparecen las letras en el texto
         abecedario = "abcdefghijklmnopqrtsuvwxyz"
         dic_base = {letra:0 for letra in abecedario}
