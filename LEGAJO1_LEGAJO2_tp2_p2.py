@@ -32,7 +32,7 @@ def descifrado_vi (texto:str,clave:str)->str:
                 texto[i] = chr(((texto[i] - clave[i % len(clave) - 1]) % 26) + 97)
     return "".join(texto)    
 
-if __name__=="__main__":
+def main():
     # Pido la ruta del archivo a desencriptar y lo guardo.
     text_dir = input("Ingrese la ruta del archivo a desencriptar: ")
 
@@ -63,3 +63,7 @@ if __name__=="__main__":
     # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
     with open(nombre_desencriptado,"w") as new_file:
         new_file.write(cifrado)
+
+if __name__=="__main__":
+    main()
+    
