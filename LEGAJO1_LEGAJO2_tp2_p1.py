@@ -46,7 +46,10 @@ def main():
         except FileNotFoundError:
             print("No se pudo abrir el archivo")
             file_found = False
-
+        except FileExistsError:
+            print("No se pudo abrir el archivo")
+            file_found = False
+            
     # Pido la clave a utilizar para encriptar.
     clave = input("Ingrese la clave a utilizar: ")
 
