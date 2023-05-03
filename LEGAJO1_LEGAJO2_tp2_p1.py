@@ -38,7 +38,14 @@ def cifrado_vi (texto: str, clave: str)-> str:
 
 def main():
     # Pido la ruta del archivo a encriptar y lo guardo.
-    text_dir = input("Ingrese la ruta del archivo a encriptar: ")
+    file_found = False
+    while not file_found:
+        try:
+            text_dir = input("Ingrese la ruta del archivo a encriptar: ")
+            file_found = True
+        except FileNotFoundError:
+            print("No se pudo abrir el archivo")
+            file_found = False
 
     # Pido la clave a utilizar para encriptar.
     clave = input("Ingrese la clave a utilizar: ")
@@ -61,6 +68,6 @@ def main():
     # Escribo lo encriptado en un archivo con el nombre_encriptado.
     with open(nombre_encriptado,"w") as new_file:
         new_file.write(cifrado)
-        
+
 if __name__ == "__main__":
     main()
