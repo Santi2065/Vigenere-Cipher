@@ -37,7 +37,7 @@ def cifrado_vi (texto:str,clave:str)->str:
                 texto[i]=chr(((texto[i]+clave[i%len(clave)-1])%26)+97)
     return "".join(texto)
 
-if __name__==__main__:
+if __name__=="__main__":
     #Pido la ruta del archivo a encriptar y lo guardo
     text_dir=input("Ingrese la ruta del archivo a encriptar: ")
 
@@ -52,8 +52,8 @@ if __name__==__main__:
     #pido el nombre del archivo a crear o editar con el texto encriptado
     nombre_encriptado=input("Ingrese el nombre del archivo encriptado: ")
 
+    # Guardo el contenido del archivo en text
     with open(text_dir, "r") as archivo:
-        #guardo el contenido del archivo en text
         text=archivo.read()
 
     #chequear si el texto utiliza alfabeto ingles
