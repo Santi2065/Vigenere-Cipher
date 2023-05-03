@@ -37,7 +37,7 @@ def cifrado_vi (texto:str,clave:str)->str:
                 texto[i]=chr(((texto[i]+clave[i%len(clave)-1])%26)+97)
     return "".join(texto)
 
-if __name__==__main__:
+if __name__=='__main__':
     #Pido la ruta del archivo a encriptar y lo guardo
     text_dir=input("Ingrese la ruta del archivo a encriptar: ")
 
