@@ -7,6 +7,18 @@ ENGLISH_LETTERS_FRECUENCIES = {
     "y": 0.01974, "z": 0.00075
 }
 
+
+def separador(n:int,text:list)->list:
+    text_separado=[]
+    k=0
+    for letra in text:
+        if letra.isalpha():
+            if (k%n)==0:
+                text_separado.append(letra)
+            k+=1
+    return text_separado
+
+
 def main():
     # Grafico 1 - Ingles
     fig, ax = plt.subplots()
