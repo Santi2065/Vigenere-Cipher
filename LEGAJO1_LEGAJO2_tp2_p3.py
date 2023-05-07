@@ -12,7 +12,7 @@ def separador(n:int,text:list)->list:
     text_separado=[]
     k=0
     for letra in text:
-        if letra.isalpha():
+        if letra.isalpha() and letra!="ñ":
             if (k%n)==0:
                 text_separado.append(letra)
             k+=1
@@ -31,19 +31,25 @@ def main():
 
     with open(nombre_archivo,'r') as texto:
         # Hacer diccionario que cuente las veces que aparecen las letras en el texto.
-        abecedario = "abcdefghijklmnopqrtsuvwxyz"
-        cuento_letras = {letra: 0 for letra in abecedario}
+        ioc_nums=[]
+        for n in range(1,30):
+            abecedario = "abcdefghijklmnopqrtsuvwxyz"
+            cuento_letras = {letra: 0 for letra in abecedario}
+            texto_separado=separador(n,texto)
 
-        # Ioc -> Sumatoria
-        # n -> Cantidad de letras del texto
-        n = 0
-        for letra in texto:
-            if letra.isalpha() and letra != 'ñ':
+            # Ioc -> Sumatoria
+            # n -> Cantidad de letras del texto
+            n = 0
+            for letra in texto_separado:
                 cuento_letras[letra]+=1
                 n += 1
-        ioc = 0
-        for i in range(1,26+1):
-            ioc += (cuento_letras[i]*(cuento_letras[i]-1))/(n*(n-1))
+            ioc = 0
+            for value in cuento_letras.values():
+                ioc += (value*(value-1))/(n*(n-1))
+            ioc_nums.append(ioc)
+    
+    print(ioc_nums)
+            
 
 if __name__=="__main__":
     main()
