@@ -7,39 +7,31 @@ ENGLISH_LETTERS_FRECUENCIES = {
     "y": 0.01974, "z": 0.00075
 }
 
-def creador_diccionario():
-        
-    # Hacer diccionario que cuente las veces que aparecen las letras en el texto
-        abecedario = "abcdefghijklmnopqrtsuvwxyz"
-        dic_base = {letra:0 for letra in abecedario}
-
-        # Ioc
-        # n = cantidad de letras del texto
-        cantidad_letras = 0
-        texto = "".join(archivo).lower()
-        for letra in texto:
-            if letra.isalpha() and letra != 'ñ':
-                dic_base[letra]+=1
-                cantidad_letras+=1
-
 def main():
-    '''
     # Grafico 1 - Ingles
     fig, ax = plt.subplots()
     ax.bar(list(ENGLISH_LETTERS_FRECUENCIES.keys()),(ENGLISH_LETTERS_FRECUENCIES.values()), label=list(ENGLISH_LETTERS_FRECUENCIES.keys()))
     ax.set_ylabel('Frecuencia')
     ax.set_title('Inglés')
     plt.show() 
-    '''
 
     nombre_archivo=input("Ingrese el nombre del archivo que contiene el texto: ")
 
-    with open(nombre_archivo,'r') as archivo:
-        ioc=0
-        for cant in dic_base.values():
-            ioc+=(cant*(cant-1))
-        ioc/=(n*(n-1))
-        print(ioc)
+    with open(nombre_archivo,'r') as texto:
+        # Hacer diccionario que cuente las veces que aparecen las letras en el texto.
+        abecedario = "abcdefghijklmnopqrtsuvwxyz"
+        cuento_letras = {letra: 0 for letra in abecedario}
+
+        # Ioc -> Sumatoria
+        # n -> Cantidad de letras del texto
+        n = 0
+        for letra in texto:
+            if letra.isalpha() and letra != 'ñ':
+                cuento_letras[letra]+=1
+                n += 1
+        ioc = 0
+        for i in range(1,26+1):
+            ioc += (cuento_letras[i]*(cuento_letras[i]-1))/(n*(n-1))
 
 if __name__=="__main__":
     main()
