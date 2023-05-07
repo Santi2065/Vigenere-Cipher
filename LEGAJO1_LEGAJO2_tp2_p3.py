@@ -39,13 +39,18 @@ def main():
 
             # Ioc -> Sumatoria
             # n -> Cantidad de letras del texto
-            n = 0
+            n = 2
             for letra in texto_separado:
                 cuento_letras[letra]+=1
                 n += 1
             ioc = 0
             for value in cuento_letras.values():
-                ioc += (value*(value-1))/(n*(n-1))
+                if start is True:
+                    ioc += (value*value_anterior)/(n*(n-1))
+                    start=False
+                else:
+                    ioc += (value)/(n)
+                value_anterior=value
             ioc_nums.append(ioc)
     
     print(ioc_nums)
