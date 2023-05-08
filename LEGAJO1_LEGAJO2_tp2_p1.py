@@ -1,4 +1,4 @@
-def cifrado_vi (texto: str, clave: str)-> str:
+def cifrado_vi (texto: str, clave: str) -> str:
     '''
     Utiliza el metodo de cifrado de Vigenère,
     toma una cadena de texto y una clave y devuelve el texto encriptado.
@@ -35,6 +35,7 @@ def main():
     No se reciben argumentos al llamar la funcion.
     ------------------------------------------------------------------
     Interaccion con el usuario:
+
     -> Ruta del archivo ha encriptar
     - Se validan ciertos requerimientos
 
@@ -46,12 +47,10 @@ def main():
     Output:
     -> Generacion del archivo encriptado con los datos recibidos.
     """
-    # Pido la ruta del archivo a encriptar y lo guardo.
+    # Pido la ruta del archivo a encriptar y lo guardo, y valido que el archivo exista.
     file_check = False
-    # Valido que el archivo exista.
-    # Pido el nombre del archivo a crear o editar con el texto encriptado.
-    while not file_check: #Esto va cuando abrimos el archivo
-        try:
+    while not file_check: 
+        try: 
             text_dir = input("Ingrese la ruta del archivo a encriptar: ")
             file_check = True
             # Guardo el contenido del archivo en text.
@@ -60,24 +59,28 @@ def main():
                 if len(text) == 0:
                     print("El archivo está vacío")
                     file_check = False
-        except FileNotFoundError:
-            print("No se pudo abrir el archivo")
+        except FileNotFoundError: # Atajo el error si el archivo no existe.
+            print("No se encontro el archivo")
             file_check = False
             
     # Pido la clave a utilizar para encriptar y evaluo su validez.
     pass_valid=False
-    while not pass_valid:
+    while not pass_valid: # Ciclo que permite volver a pedir la clave en caso de que no sea adecuada.
         clave = input("Ingrese la clave a utilizar: ")
-        pass_valid=True
+        pass_valid = True
         if clave != "":
             for letra in clave:
-                if not letra.isalpha() or letra == "ñ" or letra == " ":
-                    print("La clave solo puede contener letras del alfabeto inglés")
-                    pass_valid=False
+                if not letra.isalpha() or letra == "ñ":
+                    print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
+                    pass_valid = False
+                    break
+                elif letra.isupper():
+                    print("La clave no puede contener mayusuculas.")
+                    pass_valid = False
+                    break
         else:
             print("Debe escribir una clave")
-
-
+            pass_valid = False
 
     # Encripto el texto.
     cifrado = cifrado_vi(text,clave)
