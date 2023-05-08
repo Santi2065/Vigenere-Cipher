@@ -68,7 +68,7 @@ def main():
     # Pido la clave a utilizar para desencriptar y evaluo su validez.
     clave = input("Ingrese la clave a utilizar: ")
     for letra in clave:
-        if not letra.isalpha() or letra == "ñ":
+        if not letra.isalpha() or letra == "ñ" or letra == " ":
             print("La clave solo puede contener letras del alfabeto inglés")
             clave = input("Ingrese una nueva clave: ")
     

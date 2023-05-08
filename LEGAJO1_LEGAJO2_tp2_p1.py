@@ -70,13 +70,12 @@ def main():
             print("No se pudo abrir el archivo")
             file_found = False
             
-    # Pido la clave a utilizar para encriptar.
+    # Pido la clave a utilizar para desencriptar y evaluo su validez.
     clave = input("Ingrese la clave a utilizar: ")
-
-    # Chequear si la clave utiliza alfabeto ingles.
-    if not(clave.isalpha()):
-        print("La clave solo puede contener letras del alfabeto inglés")
-        exit(1)
+    for letra in clave:
+        if not letra.isalpha() or letra == "ñ" or letra == " ":
+            print("La clave solo puede contener letras del alfabeto inglés")
+            clave = input("Ingrese una nueva clave: ")
 
     # Pido el nombre del archivo a crear o editar con el texto encriptado.
     nombre_encriptado = input("Ingrese el nombre del archivo encriptado: ")
