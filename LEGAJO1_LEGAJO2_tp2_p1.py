@@ -10,26 +10,26 @@ El programa no debe fallar catastróficamente ante entradas insperadas del usuar
 
 def cifrado_vi (texto: str, clave: str)-> str:
     '''
-    Utilizo el metodo de cifrado de Vigenère
-    tomo una cadena de texto y una clave y devuelvo el texto encriptado.
+    Utiliza el metodo de cifrado de Vigenère,
+    toma una cadena de texto y una clave y devuelve el texto encriptado.
     --------------------------------------------------------------------
     input: 
         texto: str - texto a encriptar
         clave: str - contraseña para encriptar
-    -------------------------------------------------------------------
+    --------------------------------------------------------------------
     output:
         texto_encriptado: str - texto ya encriptado
     '''
-    # Paso la clave y el texto a minuscula y los transformo en listas de chars.(Numero relacionado al caracter segun Unicode )
+    # Paso la clave y el texto a minuscula y los transformo en listas de chars.(Los caracteres tienen un numero asignado universalmente)
     texto = list(texto.lower())
     clave = list(clave.lower())
 
-    # Cambio los caracteres de clave a numeros segun el cifrado.
+    # Cambio los caracteres de la clave a numeros segun el cifrado.
     for j in range(len(clave)):
         clave[j] = ord(clave[j])-97
     
     # Cambio los caracteres del texto a numeros, le sumo el numero
-    # de clave en la posicion correspondiente y transformo a char de vuelta.
+    # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
     for i in range(len(texto)-1):
         if texto[i].isalpha() and texto[i] != 'ñ':
             texto[i] = ord(texto[i])-97
@@ -37,9 +37,29 @@ def cifrado_vi (texto: str, clave: str)-> str:
     return "".join(texto)
 
 def main():
+    """
+    Se utiliza la funcion 'cifrado_vi' para recibir un archivo
+    y crear uno nuevo con el texto encriptado junto a la interaccion 
+    del usuario.
+    ------------------------------------------------------------------
+    No se reciben argumentos al llamar la funcion.
+    ------------------------------------------------------------------
+    Interaccion con el usuario:
+    -> Ruta del archivo ha encriptar
+    - Se validan ciertos requerimientos
+
+    -> Clave para encriptacion
+    - Se validan ciertos requerimientos
+
+    -> Ruta del nuevo archivo luego de ser encriptado
+    ------------------------------------------------------------------
+    Output:
+    -> Generacion del archivo encriptado con los datos recibidos.
+    """
     # Pido la ruta del archivo a encriptar y lo guardo.
     file_found = False
-    while not file_found:
+    # Valido que el archivo exista.
+    while not file_found: 
         try:
             text_dir = input("Ingrese la ruta del archivo a encriptar: ")
             file_found = True
