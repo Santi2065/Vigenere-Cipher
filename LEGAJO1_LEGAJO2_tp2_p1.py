@@ -15,8 +15,8 @@ def cifrado_vi (texto: str, clave: str) -> str:
     clave = list(clave.lower())
 
     # Cambio los caracteres de la clave a numeros segun el cifrado.
-    for j in range(len(clave)):
-        clave[j] = ord(clave[j])-97
+    for index,caracter in enumerate (clave):
+        clave[index] = ord(caracter)-ord("a") # El ord de 'a' permite pasar las letras a un tabla de valores entre 0 y 25.
     
     # Cambio los caracteres del texto a numeros, le sumo el numero
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
@@ -25,6 +25,8 @@ def cifrado_vi (texto: str, clave: str) -> str:
             texto[i] = ord(texto[i])-97
             texto[i] = chr(((texto[i]+clave[i%len(clave)-1])%26)+97)
     return "".join(texto)
+
+
 
 def main():
     """
