@@ -64,7 +64,7 @@ def main():
             file_check = False
             
     # Pido la clave a utilizar para encriptar y evaluo su validez.
-    pass_valid=False
+    pass_valid = False
     while not pass_valid: # Ciclo que permite volver a pedir la clave en caso de que no sea adecuada.
         clave = input("Ingrese la clave a utilizar: ")
         pass_valid = True
@@ -87,7 +87,7 @@ def main():
 
     # Escribo lo encriptado en un archivo con el nombre_encriptado.
     nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ")
-    file_check=True
+    file_check = True
     with open(nombre_encriptado,"w") as new_file:
         new_file.write(cifrado)
 

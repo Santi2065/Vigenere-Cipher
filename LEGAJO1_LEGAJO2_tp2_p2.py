@@ -35,6 +35,7 @@ def main():
     No se reciben argumentos al llamar la funcion.
     -------------------------------------------------------------------
     Interaccion con el usuario:
+
     -> Ruta del archivo encriptado
     - Se validan ciertos requerimientos
 
@@ -46,9 +47,8 @@ def main():
     Output:
     -> Generacion del archivo descencriptado con los datos recibidos.
     """
-    # Pido la ruta del archivo a desencriptar y lo guardo.
+    # Pido la ruta del archivo a desencriptar y lo guardo, y valido que el archivo exista.
     file_check = False
-    # Valido que el archivo exista.
     while not file_check: 
         try:
             text_dir = input("Ingrese la ruta del archivo a desencriptar: ")
@@ -59,33 +59,35 @@ def main():
                 if len(text) == 0:
                     print("El archivo está vacío")
                     file_check = False
-        except FileNotFoundError:
+        except FileNotFoundError: # Atajo el error si el archivo no existe.
             print("No se pudo abrir el archivo")
             file_check = False
 
     # Pido la clave a utilizar para desencriptar y evaluo su validez.
-    pass_valid=False
-    while not pass_valid:
+    pass_valid = False
+    while not pass_valid: # Ciclo que permite volver a pedir la clave si esta no es adecuada.
         clave = input("Ingrese la clave a utilizar: ")
-        pass_valid=True
+        pass_valid = True
         if clave != "":
             for letra in clave:
-                if not letra.isalpha() or letra == "ñ" or letra == " ":
-                    print("La clave solo puede contener letras del alfabeto inglés")
+                if not letra.isalpha() or letra == "ñ":
+                    print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
                     pass_valid=False
+                    break
+                elif letra.isupper():
+                    print("La clave no puede contener mayusuculas.")
+                    pass_valid = False
+                    break
         else:
             print("Debe escribir una clave")
+            pass_valid = False
 
-
-
-   
     # Desencripto el texto.
     cifrado = descifrado_vi(text,clave)
 
-    # Pido el nombre del archivo a crear o editar con el texto desencriptado.
+    # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
     nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
     file_check = True
-    # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
     with open(nombre_desencriptado,"w") as new_file:
         new_file.write(cifrado)
 
