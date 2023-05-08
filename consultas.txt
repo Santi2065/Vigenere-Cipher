@@ -1,0 +1,4 @@
+1. Cuando validamos la contraseña, puede tener mayusculas? En ese caso, si no puede tener mayusculas
+entonces le comento al usuario y le transformo las mismas a minuscula o le pido una nueva password.
+2. Esta bien usar break?
+3. Usamos un chequeador para el espacio o lo agreamos junto al is alpha.
