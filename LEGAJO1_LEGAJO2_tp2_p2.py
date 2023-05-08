@@ -89,16 +89,16 @@ def main():
     cifrado = descifrado_vi(text,clave)
 
     # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
-    nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
     file_check = False
     while not file_check: 
         try:
+            nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
             with open(nombre_desencriptado,"w") as new_file:
                 new_file.write(cifrado)
-                file_check = True
+            file_check = True
         except PermissionError: # Atajo el error si hay falta de permisos.
-                print("No tiene permisos para escribir ese archivo.")
-                file_check = False
+            print("No tiene permisos para escribir ese archivo.")
+            file_check = False
 
 if __name__=="__main__":
     main()
