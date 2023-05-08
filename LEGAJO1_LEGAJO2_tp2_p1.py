@@ -64,6 +64,9 @@ def main():
         except FileNotFoundError: # Atajo el error si el archivo no existe.
             print("No se encontro el archivo")
             file_check = False
+        except PermissionError: # Atajo el error si hay falta de permisos.
+            print("No tiene permisos para leer ese archivo.")
+            file_check = False
             
     # Pido la clave a utilizar para encriptar y evaluo su validez.
     pass_valid = False
@@ -88,10 +91,16 @@ def main():
     cifrado = cifrado_vi(text,clave)
 
     # Escribo lo encriptado en un archivo con el nombre_encriptado.
-    nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ")
-    file_check = True
-    with open(nombre_encriptado,"w") as new_file:
-        new_file.write(cifrado)
+    file_check = False
+    while not file_check: 
+        try:
+            nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ")
+            with open(nombre_encriptado,"w") as new_file:
+                new_file.write(cifrado)
+            file_check = True
+        except PermissionError: # Atajo el error si hay falta de permisos.
+            print("No tiene permisos para escribir ese archivo.")
+            file_check = False
 
 if __name__ == "__main__":
     main()
