@@ -20,10 +20,10 @@ def cifrado_vi (texto: str, clave: str) -> str:
     
     # Cambio los caracteres del texto a numeros, le sumo el numero
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
-    for i in range(len(texto)-1):
-        if texto[i].isalpha() and texto[i] != 'ñ':
-            texto[i] = ord(texto[i])-97
-            texto[i] = chr(((texto[i]+clave[i%len(clave)-1])%26)+97)
+    for idx,element in enumerate(texto):
+        if texto[idx].isalpha() and texto[idx] != 'ñ':
+            texto[idx] = ord(element) - ord('a')
+            texto[idx] = chr(((texto[idx] + clave [idx % len(clave)-1]) % 26) + ord('a'))
     return "".join(texto)
 
 

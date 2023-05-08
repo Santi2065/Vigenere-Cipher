@@ -1,4 +1,4 @@
-def descifrado_vi (texto: str,clave:str)->str:
+def descifrado_vi (texto: str,clave: str)->str:
     """
     Utiliza el metodo de cifrado de Vigenère
     y desencrpita un texto o mensaje encriptado.
@@ -16,14 +16,14 @@ def descifrado_vi (texto: str,clave:str)->str:
 
     # Cambio los caracteres de clave a numeros segun el cifrado.
     for index, caracter in enumerate(clave):
-        clave[index] = ord(caracter) - ord("a") # El ord de 'a' permite pasar las letras a un tabla de valores entre 0 y 25.
+        clave[index] = ord(caracter) - ord('a') # El ord de 'a' permite pasar las letras a un tabla de valores entre 0 y 25.
     
     # Cambio los caracteres del texto a numeros, le resto el numero
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
-    for i in range(len(texto)-1):
-        if texto[i].isalpha() and texto[i]!='ñ':
-            texto[i] = ord(texto[i]) - 97
-            texto[i] = chr(((texto[i] - clave[i % len(clave) - 1]) % 26) + 97)
+    for idx, element in enumerate(texto):
+        if texto[idx].isalpha() and texto[idx]!='ñ':
+            texto[idx] = ord(element) - ord('a')
+            texto[idx] = chr(((texto[idx] - clave[idx % len(clave) - 1]) % 26) + ord('a'))
     return "".join(texto)    
 
 def main():
@@ -62,6 +62,9 @@ def main():
         except FileNotFoundError: # Atajo el error si el archivo no existe.
             print("No se pudo abrir el archivo")
             file_check = False
+        except PermissionError: # Atajo el error si hay falta de permisos.
+            print("No tiene permisos para leer ese archivo.")
+            file_check = False
 
     # Pido la clave a utilizar para desencriptar y evaluo su validez.
     pass_valid = False
@@ -87,9 +90,15 @@ def main():
 
     # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
     nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
-    file_check = True
-    with open(nombre_desencriptado,"w") as new_file:
-        new_file.write(cifrado)
+    file_check = False
+    while not file_check: 
+        try:
+            with open(nombre_desencriptado,"w") as new_file:
+                new_file.write(cifrado)
+                file_check = True
+        except PermissionError: # Atajo el error si hay falta de permisos.
+                print("No tiene permisos para escribir ese archivo.")
+                file_check = False
 
 if __name__=="__main__":
     main()
