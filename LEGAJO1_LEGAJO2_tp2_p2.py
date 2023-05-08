@@ -58,10 +58,10 @@ def main():
         try:
             text_dir = input("Ingrese la ruta del archivo a desencriptar: ")
             file_found = True
+            # Guardo el contenido del archivo en text.
+            with open(text_dir, "r") as archivo:
+                text = archivo.read()
         except FileNotFoundError:
-            print("No se pudo abrir el archivo")
-            file_found = False
-        except FileExistsError:
             print("No se pudo abrir el archivo")
             file_found = False
 
@@ -71,20 +71,23 @@ def main():
         if not letra.isalpha() or letra == "ñ" or letra == " ":
             print("La clave solo puede contener letras del alfabeto inglés")
             clave = input("Ingrese una nueva clave: ")
-    
-    # Pido el nombre del archivo a crear o editar con el texto desencriptado.
-    nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
 
-    # Guardo el contenido del archivo en text.
-    with open(text_dir, "r") as archivo:
-        text = archivo.read()
    
     # Desencripto el texto.
     cifrado = descifrado_vi(text,clave)
 
-    # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
-    with open(nombre_desencriptado,"w") as new_file:
-        new_file.write(cifrado)
-
+    file_found=False
+    while not file_found: 
+        try:
+            # Pido el nombre del archivo a crear o editar con el texto desencriptado.
+            nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
+            file_found = True
+            # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
+            with open(nombre_desencriptado,"w") as new_file:
+                new_file.write(cifrado)
+        except FileNotFoundError:
+            print("No se pudo abrir el archivo")
+            file_found = False
+            
 if __name__=="__main__":
     main()
