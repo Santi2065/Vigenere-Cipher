@@ -34,52 +34,65 @@ def separador(n:int,text:list)->list:
     return text_separado
 
 def ioc_calc(texto:str)->float:
+    cuento_letras=cuento_repeticion(texto)
+    n = len(texto)
+    ioc = 0
+    start=True
+    for value in cuento_letras.values():
+        if start is True:
+            ioc += (value)
+            start=False
+        else:
+            ioc += (value*value_anterior)
+        value_anterior=value
+    return ioc/(n*(n-1))
 
 def ioc_promedio_clave(texto:str,largo_clave:int)->float:
+    cadena=[]
+    for index in range(0,len(texto)-1,largo_clave):
+        cadena.append(texto[index])
+    return ioc_calc("".join(cadena))
 
-def grafico(texto:str):
+#def grafico(texto:str):
 
-def frecuencia(texto:str)->dict:
+def cuento_repeticion(texto:str)->dict:
+    abecedario = "abcdefghijklmnopqrtsuvwxyz"
+    cuento_letras = {letra: 0 for letra in abecedario}
+    for letra in texto:
+        cuento_letras[letra]+=1
+    return cuento_letras
+
+def frecuencia(letras:dict,largo:int)->dict:
+    abecedario = "abcdefghijklmnopqrtsuvwxyz"
+    frecuencia= {letra: 0 for letra in abecedario}
+    for key, value in letras.items():
+        frecuencia[key]=value/largo
+    return frecuencia
 
 
 
 
 def main():
     # Grafico 1 - Ingles
-    fig, ax = plt.subplots()
-    ax.bar(list(ENGLISH_LETTERS_FRECUENCIES.keys()),(ENGLISH_LETTERS_FRECUENCIES.values()), label=list(ENGLISH_LETTERS_FRECUENCIES.keys()))
-    ax.set_ylabel('Frecuencia')
-    ax.set_title('Inglés')
-    plt.show() 
+    #fig, ax = plt.subplots()
+    #ax.bar(list(ENGLISH_LETTERS_FRECUENCIES.keys()),(ENGLISH_LETTERS_FRECUENCIES.values()), label=list(ENGLISH_LETTERS_FRECUENCIES.keys()))
+    #ax.set_ylabel('Frecuencia')
+    #ax.set_title('Inglés')
+    #plt.show() 
 
     nombre_archivo=input("Ingrese el nombre del archivo que contiene el texto: ")
 
     with open(nombre_archivo,'r') as texto:
-        # Hacer diccionario que cuente las veces que aparecen las letras en el texto.
-        ioc_nums=[]
-        for n in range(1,30):
-            abecedario = "abcdefghijklmnopqrtsuvwxyz"
-            cuento_letras = {letra: 0 for letra in abecedario}
-            texto_separado=separador(n,texto)
+        text=texto.read()
+    #le saco los caracteres que no se analizan    
+    text_analizable=[]
 
-            # Ioc -> Sumatoria
-            # n -> Cantidad de letras del texto
-            n = 2
-            for letra in texto_separado:
-                cuento_letras[letra]+=1
-                n += 1
-            ioc = 0
-            for value in cuento_letras.values():
-                if start is True:
-                    ioc += (value*value_anterior)/(n*(n-1))
-                    start=False
-                else:
-                    ioc += (value)/(n)
-                value_anterior=value
-            ioc_nums.append(ioc)
-    
-    print(ioc_nums)
-            
+    for letra in text:
+        if letra.isalpha() and letra!="ñ":
+            text_analizable.append(letra)
+    text_analizable="".join(text_analizable)
+
+    print(ioc_calc(text_analizable))
 
 if __name__=="__main__":
     main()
