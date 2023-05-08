@@ -22,46 +22,40 @@ ENGLISH_LETTERS_FRECUENCIES = {
     "y": 0.01974, "z": 0.00075
 }
 
-# Im
 
-def separador(n: int,text: list)->list: 
+def separador(largo_clave: int,text: list) ->list: # Divide un texto en n listas con letras equiespaciadas en n 
     text_separado = []
-    k = 0
-    for letra in text:
-        if letra.isalpha() and letra!="ñ":
-            if (k % n) == 0:
-                text_separado.append(letra)
-            k += 1
+    for n_lista in range(largo_clave):
+        sublista = []
+        for index in range(n_lista, len(text), largo_clave):
+            sublista.append(text[index])
+        text_separado.append(sublista)
     return text_separado
 
-def ioc_calc(texto:str)->float:
-    cuento_letras=cuento_repeticion(texto)
-    n = len(texto)
-    ioc = 0
-    start=True
-    for value in cuento_letras.values():
-        if start is True:
-            ioc += (value)
-            start=False
-        else:
-            ioc += (value*value_anterior)
-        value_anterior=value
-    return ioc/(n*(n-1))
-
-def ioc_promedio_clave(texto:str,largo_clave:int)->float:
-    cadena=[]
-    for index in range(0,len(texto)-1,largo_clave):
-        cadena.append(texto[index])
-    return ioc_calc("".join(cadena))
-
-#def grafico(texto:str):
-
-def cuento_repeticion(texto:str)->dict:
+def cuento_repeticion(texto:str)->dict:# crea diccionario con la cantidad de letras repetidas que tiene un texto.
     abecedario = "abcdefghijklmnopqrtsuvwxyz"
     cuento_letras = {letra: 0 for letra in abecedario}
     for letra in texto:
         cuento_letras[letra]+=1
     return cuento_letras
+
+def ioc_calc(texto:str)->float: 
+    cuento_letras = cuento_repeticion(texto)
+    print(cuento_letras)
+    n = len(texto)
+    ioc = 0
+    for value in cuento_letras.values():
+        ioc += (value*(value-1))
+    return ioc/(n*(n-1))
+
+def ioc_promedio_clave(texto:str,largo_clave:int)->float:
+    cadena=separador(largo_clave, texto)
+    ioc_final=0
+    for lista in cadena:
+        ioc_final+=ioc_calc("".join(lista))
+    return ioc_final/largo_clave
+
+#def grafico(texto:str):
 
 def frecuencia(letras:dict,largo:int)->dict:
     abecedario = "abcdefghijklmnopqrtsuvwxyz"
