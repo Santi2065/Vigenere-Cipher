@@ -33,6 +33,16 @@ def separador(n:int,text:list)->list:
             k+=1
     return text_separado
 
+def ioc_calc(texto:str)->float:
+
+def ioc_promedio_clave(texto:str,largo_clave:int)->float:
+
+def grafico(texto:str):
+
+def frecuencia(texto:str)->dict:
+
+
+
 
 def main():
     # Grafico 1 - Ingles
