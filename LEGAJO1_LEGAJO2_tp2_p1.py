@@ -59,7 +59,7 @@ def main():
     # Pido la ruta del archivo a encriptar y lo guardo.
     file_found = False
     # Valido que el archivo exista.
-    while not file_found: 
+    while not file_found: #Esto va cuando abrimos el archivo
         try:
             text_dir = input("Ingrese la ruta del archivo a encriptar: ")
             file_found = True
