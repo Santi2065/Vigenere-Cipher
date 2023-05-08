@@ -52,42 +52,47 @@ def main():
     -> Generacion del archivo descencriptado con los datos recibidos.
     """
     # Pido la ruta del archivo a desencriptar y lo guardo.
-    file_found = False
+    file_check = False
     # Valido que el archivo exista.
-    while not file_found: 
+    while not file_check: 
         try:
             text_dir = input("Ingrese la ruta del archivo a desencriptar: ")
-            file_found = True
+            file_check = True
             # Guardo el contenido del archivo en text.
             with open(text_dir, "r") as archivo:
                 text = archivo.read()
+                if len(text) == 0:
+                    print("El archivo está vacío")
+                    file_check = False
         except FileNotFoundError:
             print("No se pudo abrir el archivo")
-            file_found = False
+            file_check = False
 
     # Pido la clave a utilizar para desencriptar y evaluo su validez.
-    clave = input("Ingrese la clave a utilizar: ")
-    for letra in clave:
-        if not letra.isalpha() or letra == "ñ" or letra == " ":
-            print("La clave solo puede contener letras del alfabeto inglés")
-            clave = input("Ingrese una nueva clave: ")
+    pass_valid=False
+    while not pass_valid:
+        clave = input("Ingrese la clave a utilizar: ")
+        pass_valid=True
+        if clave != "":
+            for letra in clave:
+                if not letra.isalpha() or letra == "ñ" or letra == " ":
+                    print("La clave solo puede contener letras del alfabeto inglés")
+                    pass_valid=False
+        else:
+            print("Debe escribir una clave")
+
+
 
    
     # Desencripto el texto.
     cifrado = descifrado_vi(text,clave)
 
-    file_found=False
-    while not file_found: 
-        try:
-            # Pido el nombre del archivo a crear o editar con el texto desencriptado.
-            nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
-            file_found = True
-            # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
-            with open(nombre_desencriptado,"w") as new_file:
-                new_file.write(cifrado)
-        except FileNotFoundError:
-            print("No se pudo abrir el archivo")
-            file_found = False
-            
+    # Pido el nombre del archivo a crear o editar con el texto desencriptado.
+    nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
+    file_check = True
+    # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
+    with open(nombre_desencriptado,"w") as new_file:
+        new_file.write(cifrado)
+
 if __name__=="__main__":
     main()

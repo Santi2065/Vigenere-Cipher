@@ -67,32 +67,36 @@ def main():
             # Guardo el contenido del archivo en text.
             with open(text_dir, "r") as archivo:
                 text = archivo.read()
+                if len(text) == 0:
+                    print("El archivo está vacío")
+                    file_check = False
         except FileNotFoundError:
             print("No se pudo abrir el archivo")
             file_check = False
             
     # Pido la clave a utilizar para encriptar y evaluo su validez.
-    clave = input("Ingrese la clave a utilizar: ")
-    for letra in clave:
-        if not letra.isalpha() or letra == "ñ" or letra == " ":
-            print("La clave solo puede contener letras del alfabeto inglés")
-            clave = input("Ingrese una nueva clave: ")
+    pass_valid=False
+    while not pass_valid:
+        clave = input("Ingrese la clave a utilizar: ")
+        pass_valid=True
+        if clave != "":
+            for letra in clave:
+                if not letra.isalpha() or letra == "ñ" or letra == " ":
+                    print("La clave solo puede contener letras del alfabeto inglés")
+                    pass_valid=False
+        else:
+            print("Debe escribir una clave")
+
 
 
     # Encripto el texto.
     cifrado = cifrado_vi(text,clave)
 
     # Escribo lo encriptado en un archivo con el nombre_encriptado.
-    file_check=False
-    while not file_check:
-        try:
-            nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ")
-            file_check=True
-            with open(nombre_encriptado,"w") as new_file:
-                new_file.write(cifrado)
-        except FileNotFoundError:
-            print("No se pudo abrir el archivo")
-            file_check = False
+    nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ")
+    file_check=True
+    with open(nombre_encriptado,"w") as new_file:
+        new_file.write(cifrado)
 
 if __name__ == "__main__":
     main()
