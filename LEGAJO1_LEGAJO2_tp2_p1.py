@@ -70,7 +70,7 @@ def main():
             print("No se pudo abrir el archivo")
             file_found = False
             
-    # Pido la clave a utilizar para desencriptar y evaluo su validez.
+    # Pido la clave a utilizar para encriptar y evaluo su validez.
     clave = input("Ingrese la clave a utilizar: ")
     for letra in clave:
         if not letra.isalpha() or letra == "ñ" or letra == " ":
