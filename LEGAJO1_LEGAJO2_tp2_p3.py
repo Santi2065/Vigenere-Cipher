@@ -87,7 +87,7 @@ def main():
             text_analizable.append(letra)
     text_analizable="".join(text_analizable)
 
-    print(ioc_calc(text_analizable))
+    print(text_analizable)
 
 if __name__=="__main__":
     main()
