@@ -57,18 +57,19 @@ def main():
     -> Generacion del archivo encriptado con los datos recibidos.
     """
     # Pido la ruta del archivo a encriptar y lo guardo.
-    file_found = False
+    file_check = False
     # Valido que el archivo exista.
-    while not file_found: #Esto va cuando abrimos el archivo
+    # Pido el nombre del archivo a crear o editar con el texto encriptado.
+    while not file_check: #Esto va cuando abrimos el archivo
         try:
             text_dir = input("Ingrese la ruta del archivo a encriptar: ")
-            file_found = True
+            file_check = True
+            # Guardo el contenido del archivo en text.
+            with open(text_dir, "r") as archivo:
+                text = archivo.read()
         except FileNotFoundError:
             print("No se pudo abrir el archivo")
-            file_found = False
-        except FileExistsError:
-            print("No se pudo abrir el archivo")
-            file_found = False
+            file_check = False
             
     # Pido la clave a utilizar para encriptar y evaluo su validez.
     clave = input("Ingrese la clave a utilizar: ")
@@ -77,19 +78,21 @@ def main():
             print("La clave solo puede contener letras del alfabeto inglés")
             clave = input("Ingrese una nueva clave: ")
 
-    # Pido el nombre del archivo a crear o editar con el texto encriptado.
-    nombre_encriptado = input("Ingrese el nombre del archivo encriptado: ")
-
-    # Guardo el contenido del archivo en text.
-    with open(text_dir, "r") as archivo:
-        text = archivo.read()
 
     # Encripto el texto.
     cifrado = cifrado_vi(text,clave)
 
     # Escribo lo encriptado en un archivo con el nombre_encriptado.
-    with open(nombre_encriptado,"w") as new_file:
-        new_file.write(cifrado)
+    file_check=False
+    while not file_check:
+        try:
+            nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ")
+            file_check=True
+            with open(nombre_encriptado,"w") as new_file:
+                new_file.write(cifrado)
+        except FileNotFoundError:
+            print("No se pudo abrir el archivo")
+            file_check = False
 
 if __name__ == "__main__":
     main()
