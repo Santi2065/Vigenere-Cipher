@@ -127,7 +127,11 @@ def ioc_promedio_clave(texto: str, largo_clave: int) ->float:
         ioc_final+= calculo_ioc("".join(lista))
     return ioc_final/largo_clave
 
-#def grafico(texto:str):
+def grafico(elementos:dict,y_lable:str,titulo:str):
+    plt.bar(list(elementos.keys()),(elementos.values()))
+    plt.title(titulo)
+    plt.ylabel(y_lable)
+    plt.show()
 
 def main():
     # Grafico 1 - Ingles
@@ -142,6 +146,16 @@ def main():
     with open(nombre_archivo,'r') as texto:
         text = texto.read()
         text = text_formatter(text)
+        
+    # Grafico ioc
+    ioc_largos={n:ioc_promedio_clave(text_analizable,n) for n in range(1,30)}
+    grafico(ioc_largos,"índice de coincidencia","ioc")
+    # Grafico 1 - Ingles
+    grafico(ENGLISH_LETTERS_FRECUENCIES,"Frecuencia","Ingles")
+    #resto de graficos
+    for largo in range(1,30):
+        grafico(frecuencia(text_analizable,largo),"Frecuencia",f"Letra {largo} de la clave")
+
 
 if __name__=="__main__":
     main()
