@@ -82,7 +82,8 @@ def cuento_repeticion(texto: str) ->dict:
         cuento_letras -> Diccionario con frecuencias
 
     """
-    abecedario = "abcdefghijklmnopqrtsuvwxyz" # Defino el abecedario ingles en un string para solo evaluar estas letras.
+
+    abecedario = "abcdefghijklmnopqrstuvwxyz" # Defino el abecedario ingles en un string para solo evaluar estas letras.
     cuento_letras = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
     for letra in texto: # Iteracion para cada letra del texto.
         cuento_letras[letra]+=1 # Aumento la frecuencia de cada letra a medida que itero en el texto.
@@ -110,7 +111,7 @@ def calculo_ioc(texto: str) ->float:
 
 # Se define una funcion que dado un diccionario, crea otro diccionario con la frecuencia de cada letra en un texto. 
 def frecuencia(letras: dict, largo_texto:int) -> dict:
-    abecedario = "abcdefghijklmnopqrtsuvwxyz" # Defino el abecedario ingles para luego trabajar con el mismo.
+    abecedario = "abcdefghijklmnopqrstuvwxyz" # Defino el abecedario ingles para luego trabajar con el mismo.
     frecuencia = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
     for key, value in letras.items(): # Entro a cada llave y valor del diccionario recibido.
         frecuencia[key] = value / largo_texto # Reemplazo el valor del diccionario por la frecuencia calculada con la formula.
@@ -124,11 +125,11 @@ def ioc_promedio_clave(texto: str, largo_clave: int) ->float:
         ioc_final+= calculo_ioc("".join(lista))
     return ioc_final/largo_clave
 
-def grafico(elementos:dict,y_lable:str,titulo:str):
+def grafico(elementos:dict, y_label:str, x_label:str, titulo:str):
     plt.bar(list(elementos.keys()),(elementos.values()))
     plt.title(titulo)
-    plt.ylabel(y_lable)
-    plt.show()
+    plt.ylabel(y_label)
+    plt.xlabel(x_label)
 
 def divisor_de_texto(text:str,inicio:int)->str:
     texto_final=[]
@@ -144,15 +145,21 @@ def main():
         text = text_formatter(text)
         
     # Grafico ioc
-    ioc_largos={n:ioc_promedio_clave(text,n) for n in range(1,30)}
-    grafico(ioc_largos,"índice de coincidencia","ioc")
+    ioc_largos={n:ioc_promedio_clave(text,n) for n in range(1,31)}
+    grafico(ioc_largos,"índice de coincidencia","","ioc")
+    plt.show()
     # Grafico 1 - Ingles
-    grafico(ENGLISH_LETTERS_FRECUENCIES,"Frecuencia","Ingles")
+    plt.subplot(3,2,1)
+    grafico(ENGLISH_LETTERS_FRECUENCIES,"Frecuencia","","Ingles")
+    
     #resto de graficos
     inicio=0
     for largo in range(5,0,-1):
-        grafico(frecuencia(cuento_repeticion(divisor_de_texto(text,inicio)),len(text)),"Frecuencia",f"Letra {largo} de la clave")
+        plt.subplot(3,2,largo+1)
+        grafico(frecuencia(cuento_repeticion(divisor_de_texto(text,inicio)),len(text)), "Frecuencia", "", f"Letra {largo} de la clave")
         inicio+=1
+    plt.tight_layout()
+    plt.show()
 
 
 if __name__=="__main__":
