@@ -22,22 +22,51 @@ ENGLISH_LETTERS_FRECUENCIES = {
     "y": 0.01974, "z": 0.00075
 }
 
-
-def separador(largo_clave: int,text: list) ->list: # Divide un texto en n listas con letras equiespaciadas en n 
-    text_separado = []
-    for n_lista in range(largo_clave):
-        sublista = []
-        for index in range(n_lista, len(text), largo_clave):
-            sublista.append(text[index])
-        text_separado.append(sublista)
+# Se define una funcion separador con el fin de crear una lista con 'N' sublistas, agrupadas por cada
+# letra del lugar 'N' y sus multiplos hasta el final del texto.
+def separador(largo_clave: int,text: list) ->list: 
+    """
+    La funcion separador recibe dos argumentos que permite separar un texto en 
+    una lista con sublistas dentro. Cada sublista agrupa una serie de letras
+    en ese 'N' lugar y luego avanza a la proxima posicion salteando de a 'N' espacios.
+    ------------------------------------------------------------------------------
+    input : 
+        largo_clave -> 'N' Frecuencia de avance entre letra y letra
+        text -> Texto a separar
+    ------------------------------------------------------------------------------
+    output :
+        text_separado -> Lista con sublistas de letras.
+    """
+    text_separado = [] # Creamos una lista vacia que va a agrupar a las sublistas.
+    for n_lista in range(largo_clave): # Iteramos solo la cantidad de 'N' ingresadas por el usuario.
+        sublista = [] # Lista auxiliar que permite almacenar los valores requeridos del texto.
+        for index in range(n_lista, len(text), largo_clave): # Iterador por cada 'N'.
+            sublista.append(text[index]) # Se agrega la letra en el lugar 'N' a una sublista y se avanzan otros 'N' espacios.
+        text_separado.append(sublista) # Se inserta la sublista completa, y se pasa al siguiente 'N'
     return text_separado
 
-def cuento_repeticion(texto:str)->dict:# crea diccionario con la cantidad de letras repetidas que tiene un texto.
-    abecedario = "abcdefghijklmnopqrtsuvwxyz"
-    cuento_letras = {letra: 0 for letra in abecedario}
-    for letra in texto:
-        cuento_letras[letra]+=1
-    return cuento_letras
+# Se define una funcion que dado un texto, crea un texto con la frecuencia de cada letra del abecedario ingles.
+def cuento_repeticion(texto: str) ->dict:
+    """
+    - La funcion cuento_repeticion recibe un texto y devuelve un diccionario
+    con la frecuencia de cada letra del abecedario ingles en el texto.
+
+    - Se analizan unicamente los textos en minuscula, es decir transforma 
+    los caracteres del texto a minuscula y evalua en ese contexto.
+    -----------------------------------------------------------------------
+    input:
+        texto -> Texto ha analizar
+    -----------------------------------------------------------------------
+    output:
+        cuento_letras -> Diccionario con frecuencias
+
+    """
+    abecedario = "abcdefghijklmnopqrtsuvwxyz" # Defino el abecedario ingles en un string para solo evaluar estas letras.
+    cuento_letras = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
+    for letra in texto: # Iteracion para cada letra del texto.
+        letra = letra.lower() # Transformo cada letra en minuscula para trabajar en este contexto.
+        cuento_letras[letra]+=1 # Aumento la frecuencia de cada letra a medida que itero en el texto.
+    return cuento_letras # Devuelve el diccionario con las frecuencias de cada letra en el texto.
 
 def ioc_calc(texto:str)->float: 
     cuento_letras = cuento_repeticion(texto)

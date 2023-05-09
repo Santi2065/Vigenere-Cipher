@@ -2,8 +2,11 @@
 entonces le comento al usuario y le transformo las mismas a minuscula o le pido una nueva password.
 2. Esta bien usar break en el caso de que cuando valido la contraseña, y encuentro un caracter no deseado
 directamente salgo de la iteracion y envio que mande una nueva contraseña.
-3. Usamos un chequeador para el espacio o lo agreamos junto al is alpha y enviamos un mensaje en conjunto?
-4. Que hacemos con el permission error, como lo atajamos.
-5. Estaria bueno que el validar archivo sea una funcion aparte, al igual que la clave etc.
-6.hacer docstring de main?
-7. Hacemos funcion que verifique tildes?
+3. Usamos un chequeador para el espacio o lo agreamos junto al is alpha y enviamos un mensaje en conjunto? o mejor que sean 
+2 chequeadores distintos y que salten dos mensajes distintos para cada error.
+4. Que hacemos con el permission error, como lo atajamos? En realidad ya lo atajamos con un try except, pero como no lo vimos. 
+5. Estaria bueno que el 'validar archivo' sea una funcion aparte, al igual que la validacion de clave y etc.
+6. Esta bien hacer docstring de todas las funciones, o es irrelevante
+7. Hacemos funcion que verifique tildes? o con que este el codigo no hace falta que sea una funcion aparte. La 
+duda mas grande es si hacemos funciones para las distintas tareas como esta de sacar tildes, y luego las llamamos
+o mejor que el codigo en general lo tenga.
