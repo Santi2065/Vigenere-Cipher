@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+ABECEDARIO="abcdefghijklmnopqrstuvwxyz"
 ENGLISH_LETTERS_FRECUENCIES = {
     "a": 0.08167, "b": 0.01492, "c": 0.02782, "d": 0.04253, "e": 0.12702, "f": 0.02228,
     "g": 0.02015, "h": 0.06094, "i": 0.06966, "j": 0.00153, "k": 0.00772, "l": 0.04025,
@@ -23,7 +24,7 @@ def text_formatter(texto: str) -> str:
     clean_text = [] # Creo una lista vacia donde almaceno cada una de las letras deseadas.
     for letra in texto: # Itero en cada letro del texto dado.
         letra = letra.lower()
-        if letra.isalpha() and letra != "ñ": 
+        if ord('a') <= ord(letra) <= ord('z'): 
             clean_text.append(letra) # Si la letra es valida y adecuada, la agrego a la lista 'clean_text'
     clean_text = "".join(clean_text) # Transformo la lista en un texto solo con las letras adecuadas sin espacios.
     return clean_text
@@ -67,9 +68,7 @@ def cuento_repeticion(texto: str) ->dict:
         cuento_letras -> Diccionario con frecuencias
 
     """
-
-    abecedario = "abcdefghijklmnopqrstuvwxyz" # Defino el abecedario ingles en un string para solo evaluar estas letras.
-    cuento_letras = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
+    cuento_letras = {letra: 0 for letra in ABECEDARIO} # Hago un diccionario de comprension para cada letra de 'abecedario'.
     for letra in texto: # Iteracion para cada letra del texto.
         cuento_letras[letra]+=1 # Aumento la frecuencia de cada letra a medida que itero en el texto.
     return cuento_letras # Devuelve el diccionario con las frecuencias de cada letra en el texto.
@@ -96,8 +95,7 @@ def calculo_ioc(texto: str) ->float:
 
 # Se define una funcion que dado un diccionario, crea otro diccionario con la frecuencia de cada letra en un texto. 
 def frecuencia(letras: dict, largo_texto:int) -> dict:
-    abecedario = "abcdefghijklmnopqrstuvwxyz" # Defino el abecedario ingles para luego trabajar con el mismo.
-    frecuencia = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
+    frecuencia = {letra: 0 for letra in ABECEDARIO} # Hago un diccionario de comprension para cada letra de 'abecedario'.
     for key, value in letras.items(): # Entro a cada llave y valor del diccionario recibido.
         frecuencia[key] = value / largo_texto # Reemplazo el valor del diccionario por la frecuencia calculada con la formula.
     return frecuencia # Devuelve el diccionario con cada una de las frecuencias de cada letra del abecedario ingles en un texto.

@@ -22,7 +22,7 @@ def descifrado_vi (texto: str,clave: str)->str:
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
     index_clave=0
     for idx_texto,element in enumerate(texto):
-        if element.isalpha() and element != 'ñ':
+        if ord('a') <= ord(element) <= ord('z'):
             texto[idx_texto] = ord(element) - ord('a')
             texto[idx_texto] = chr(((texto[idx_texto] - clave[index_clave % len(clave)]) % 26) + ord('a'))
             index_clave+=1
@@ -74,7 +74,7 @@ def main():
         pass_valid = True
         if clave != "":
             for letra in clave:
-                if not letra.isalpha() or letra == "ñ":
+                if not (ord('a') <= ord(letra) <= ord('z')):
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
                     pass_valid=False
                     break
