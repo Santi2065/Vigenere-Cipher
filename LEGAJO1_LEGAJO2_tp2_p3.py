@@ -22,6 +22,27 @@ ENGLISH_LETTERS_FRECUENCIES = {
     "y": 0.01974, "z": 0.00075
 }
 
+# Se define una funcion que dada un texto, lo limpia dejandolo como un string sin espacios y en minuscula. La misma se
+# utilizara durante el programa.
+def text_formatter(texto: str) -> str:
+    """
+    La funcion text_formatter recibe un texto y lo formatea dejando un 
+    string sin espacios ni caracteres no deseados.
+    ------------------------------------------------------------------
+    input:
+        texto -> Texto ha formatear
+    ------------------------------------------------------------------
+    output:
+        texto -> Texto formateado
+    """
+    clean_text = [] # Creo una lista vacia donde almaceno cada una de las letras deseadas.
+    for letra in texto: # Itero en cada letro del texto dado.
+        letra = letra.lower()
+        if letra.isalpha() and letra != "ñ": 
+            clean_text.append(letra) # Si la letra es valida y adecuada, la agrego a la lista 'clean_text'
+    clean_text = "".join(clean_text) # Transformo la lista en un texto solo con las letras adecuadas sin espacios.
+    return clean_text
+
 # Se define una funcion separador con el fin de crear una lista con 'N' sublistas, agrupadas por cada
 # letra del lugar 'N' y sus multiplos hasta el final del texto.
 def separador(largo_clave: int,text: list) ->list: 
@@ -45,7 +66,7 @@ def separador(largo_clave: int,text: list) ->list:
         text_separado.append(sublista) # Se inserta la sublista completa, y se pasa al siguiente 'N'
     return text_separado
 
-# Se define una funcion que dado un texto, crea un texto con la frecuencia de cada letra del abecedario ingles.
+# Se define una funcion que dado un texto, crea un diccionario con la cantidad de repeticiones de cada letra del abecedario ingles.
 def cuento_repeticion(texto: str) ->dict:
     """
     - La funcion cuento_repeticion recibe un texto y devuelve un diccionario
@@ -63,38 +84,50 @@ def cuento_repeticion(texto: str) ->dict:
     """
     abecedario = "abcdefghijklmnopqrtsuvwxyz" # Defino el abecedario ingles en un string para solo evaluar estas letras.
     cuento_letras = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
+    texto = text_formatter(texto)
     for letra in texto: # Iteracion para cada letra del texto.
-        letra = letra.lower() # Transformo cada letra en minuscula para trabajar en este contexto.
         cuento_letras[letra]+=1 # Aumento la frecuencia de cada letra a medida que itero en el texto.
     return cuento_letras # Devuelve el diccionario con las frecuencias de cada letra en el texto.
 
-def ioc_calc(texto:str)->float: 
-    cuento_letras = cuento_repeticion(texto)
-    print(cuento_letras)
-    n = len(texto)
-    ioc = 0
-    for value in cuento_letras.values():
-        ioc += (value*(value-1))
-    return ioc/(n*(n-1))
+# Se define una funcion que en base a la formula del calculo del ioc, devuelve el ioc de un texto dado.
+def calculo_ioc(texto: str) ->float: 
+    """
+    La funcion 'calculo_ioc' recibe un texto y calcula el indice de coincidencia 
+    de un texto en ingles.
+    ----------------------------------------------------------------------------
+    input:
+        texto -> Texto ha calcular indice de coincidencia
+    ----------------------------------------------------------------------------
+    output:
+        ioc -> Indice de coincidencia del texto
+    """
+    cuento_letras = cuento_repeticion(texto) # Cuento la frecuencia de las letras del texto dado llamando a 'cuento_repeticion'.
+    n = len(texto) # Calculo el largo del texto y lo guardo en 'n' porque lo necesito para el calculo del ioc.
+    ioc = 0 
+    for value in cuento_letras.values(): # Entro en el diccionario creado y utilizo los 'value' para el calculo.
+        ioc += value * (value - 1)
+    ioc /= n * (n - 1)
+    return ioc
 
-def ioc_promedio_clave(texto:str,largo_clave:int)->float:
-    cadena=separador(largo_clave, texto)
+# Se define una funcion que dado un diccionario, crea otro diccionario con la frecuencia de cada letra en un texto. 
+def frecuencia(letras: dict, texto: str) -> dict:
+    abecedario = "abcdefghijklmnopqrtsuvwxyz" # Defino el abecedario ingles para luego trabajar con el mismo.
+    texto = text_formatter(texto) # Llamo a la funcion 'text_formatter' que deja el texto como un string sin espacios.
+    largo = len(texto) # Calculo el largo del texto.
+    frecuencia = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
+    for key, value in letras.items(): # Entro a cada llave y valor del diccionario recibido.
+        frecuencia[key] = value / largo # Reemplazo el valor del diccionario por la frecuencia calculada con la formula.
+    return frecuencia # Devuelve el diccionario con cada una de las frecuencias de cada letra del abecedario ingles en un texto.
+
+# Se define una funcion que recibe un texto 
+def ioc_promedio_clave(texto: str, largo_clave: int) ->float:
+    cadena = separador(largo_clave, texto)
     ioc_final=0
     for lista in cadena:
-        ioc_final+=ioc_calc("".join(lista))
+        ioc_final+= calculo_ioc("".join(lista))
     return ioc_final/largo_clave
 
 #def grafico(texto:str):
-
-def frecuencia(letras:dict,largo:int)->dict:
-    abecedario = "abcdefghijklmnopqrtsuvwxyz"
-    frecuencia= {letra: 0 for letra in abecedario}
-    for key, value in letras.items():
-        frecuencia[key]=value/largo
-    return frecuencia
-
-
-
 
 def main():
     # Grafico 1 - Ingles
@@ -104,19 +137,11 @@ def main():
     #ax.set_title('Inglés')
     #plt.show() 
 
-    nombre_archivo=input("Ingrese el nombre del archivo que contiene el texto: ")
+    nombre_archivo = input("Ingrese el nombre del archivo que contiene el texto: ")
 
     with open(nombre_archivo,'r') as texto:
-        text=texto.read()
-    #le saco los caracteres que no se analizan    
-    text_analizable=[]
-
-    for letra in text:
-        if letra.isalpha() and letra!="ñ":
-            text_analizable.append(letra)
-    text_analizable="".join(text_analizable)
-
-    print(text_analizable)
+        text = texto.read()
+        text = text_formatter(text)
 
 if __name__=="__main__":
     main()
