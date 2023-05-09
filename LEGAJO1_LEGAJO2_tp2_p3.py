@@ -45,7 +45,7 @@ def text_formatter(texto: str) -> str:
 
 # Se define una funcion separador con el fin de crear una lista con 'N' sublistas, agrupadas por cada
 # letra del lugar 'N' y sus multiplos hasta el final del texto.
-def separador(largo_clave: int,text: list) ->list: 
+def separador(largo_clave: int,text: list) ->str: 
     """
     La funcion separador recibe dos argumentos que permite separar un texto en 
     una lista con sublistas dentro. Cada sublista agrupa una serie de letras
@@ -84,7 +84,6 @@ def cuento_repeticion(texto: str) ->dict:
     """
     abecedario = "abcdefghijklmnopqrtsuvwxyz" # Defino el abecedario ingles en un string para solo evaluar estas letras.
     cuento_letras = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
-    texto = text_formatter(texto)
     for letra in texto: # Iteracion para cada letra del texto.
         cuento_letras[letra]+=1 # Aumento la frecuencia de cada letra a medida que itero en el texto.
     return cuento_letras # Devuelve el diccionario con las frecuencias de cada letra en el texto.
@@ -110,13 +109,11 @@ def calculo_ioc(texto: str) ->float:
     return ioc
 
 # Se define una funcion que dado un diccionario, crea otro diccionario con la frecuencia de cada letra en un texto. 
-def frecuencia(letras: dict, texto: str) -> dict:
+def frecuencia(letras: dict, largo_texto:int) -> dict:
     abecedario = "abcdefghijklmnopqrtsuvwxyz" # Defino el abecedario ingles para luego trabajar con el mismo.
-    texto = text_formatter(texto) # Llamo a la funcion 'text_formatter' que deja el texto como un string sin espacios.
-    largo = len(texto) # Calculo el largo del texto.
     frecuencia = {letra: 0 for letra in abecedario} # Hago un diccionario de comprension para cada letra de 'abecedario'.
     for key, value in letras.items(): # Entro a cada llave y valor del diccionario recibido.
-        frecuencia[key] = value / largo # Reemplazo el valor del diccionario por la frecuencia calculada con la formula.
+        frecuencia[key] = value / largo_texto # Reemplazo el valor del diccionario por la frecuencia calculada con la formula.
     return frecuencia # Devuelve el diccionario con cada una de las frecuencias de cada letra del abecedario ingles en un texto.
 
 # Se define una funcion que recibe un texto 
@@ -133,14 +130,13 @@ def grafico(elementos:dict,y_lable:str,titulo:str):
     plt.ylabel(y_lable)
     plt.show()
 
-def main():
-    # Grafico 1 - Ingles
-    #fig, ax = plt.subplots()
-    #ax.bar(list(ENGLISH_LETTERS_FRECUENCIES.keys()),(ENGLISH_LETTERS_FRECUENCIES.values()), label=list(ENGLISH_LETTERS_FRECUENCIES.keys()))
-    #ax.set_ylabel('Frecuencia')
-    #ax.set_title('Inglés')
-    #plt.show() 
+def divisor_de_texto(text:str,inicio:int)->str:
+    texto_final=[]
+    for index in range(inicio,len(text),5):
+        texto_final.append(text[index])
+    return "".join(texto_final)
 
+def main():
     nombre_archivo = input("Ingrese el nombre del archivo que contiene el texto: ")
 
     with open(nombre_archivo,'r') as texto:
@@ -148,13 +144,15 @@ def main():
         text = text_formatter(text)
         
     # Grafico ioc
-    ioc_largos={n:ioc_promedio_clave(text_analizable,n) for n in range(1,30)}
+    ioc_largos={n:ioc_promedio_clave(text,n) for n in range(1,30)}
     grafico(ioc_largos,"índice de coincidencia","ioc")
     # Grafico 1 - Ingles
     grafico(ENGLISH_LETTERS_FRECUENCIES,"Frecuencia","Ingles")
     #resto de graficos
-    for largo in range(1,30):
-        grafico(frecuencia(text_analizable,largo),"Frecuencia",f"Letra {largo} de la clave")
+    inicio=0
+    for largo in range(5,0,-1):
+        grafico(frecuencia(cuento_repeticion(divisor_de_texto(text,inicio)),len(text)),"Frecuencia",f"Letra {largo} de la clave")
+        inicio+=1
 
 
 if __name__=="__main__":
