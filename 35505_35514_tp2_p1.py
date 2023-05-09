@@ -15,20 +15,18 @@ def cifrado_vi (texto: str, clave: str) -> str:
     clave = list(clave.lower())
 
     # Cambio los caracteres de la clave a numeros segun el cifrado.
-    for index,caracter in enumerate (clave):
-        clave[index] = ord(caracter)-ord("a") # El ord de 'a' permite pasar las letras a un tabla de valores entre 0 y 25.
+    for index, caracter in enumerate (clave):
+        clave[index] = ord(caracter) - ord("a") # El ord de 'a' permite pasar las letras a un tabla de valores entre 0 y 25.
     
     # Cambio los caracteres del texto a numeros, le sumo el numero
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
-    index_clave=0
-    for idx_texto,element in enumerate(texto):
-        if ord('a') <= ord(element) <= ord('z'):
-            texto[idx_texto] = ord(element) - ord('a')
-            texto[idx_texto] = chr(((texto[idx_texto] + clave [index_clave % len(clave)]) % 26) + ord('a'))
-            index_clave+=1
+    index_clave = 0 # Defino un contador para llevar la cuenta de letras validas.
+    for idx_texto, element in enumerate(texto):
+       if ord('a') <= ord(element) <= ord('z'): # Valido que las letras del texto sean adecuadas al abecedario ingles.
+            texto[idx_texto] = ord(element) - ord('a') 
+            texto[idx_texto] = chr(((texto[idx_texto] + clave[index_clave % len(clave)]) % 26) + ord('a'))
+            index_clave += 1 # Aumento el contador de letras validas. 
     return "".join(texto)
-
-
 
 def main():
     """
@@ -52,17 +50,17 @@ def main():
     -> Generacion del archivo encriptado con los datos recibidos.
     """
     # Pido la ruta del archivo a encriptar y lo guardo, y valido que el archivo exista.
-    file_check = False
+    file_check = False # Defino una variable booleana para luego ir validando ciertos requisitos y poder pedir nuevamente el archivo.
     while not file_check: 
         try: 
             text_dir = input("Ingrese la ruta del archivo a encriptar: ")
-            file_check = True
+            file_check = True # Cambiamos el valor de 'file_check' para asumir que el archivo ingresado es correcto.
             # Guardo el contenido del archivo en text.
             with open(text_dir, "r") as archivo:
                 text = archivo.read()
                 if len(text) == 0:
                     print("El archivo está vacío")
-                    file_check = False
+                    file_check = False # Cambiamos el valor de 'file_check' para que vuelva a pedir el archivo.
         except FileNotFoundError: # Atajo el error si el archivo no existe.
             print("No se encontro el archivo")
             file_check = False
@@ -74,10 +72,10 @@ def main():
     pass_valid = False
     while not pass_valid: # Ciclo que permite volver a pedir la clave en caso de que no sea adecuada.
         clave = input("Ingrese la clave a utilizar: ")
-        pass_valid = True
+        pass_valid = True # Cambiamos el valor de 'pass_valid' para asumir que la clave es adecuada.
         if clave != "":
             for letra in clave:
-                if not (ord('a') <= ord(letra) <= ord('z')):
+                if not letra.isalpha() or letra == "ñ":
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
                     pass_valid = False
                     break
@@ -85,7 +83,7 @@ def main():
                     print("La clave no puede contener mayusuculas.")
                     pass_valid = False
                     break
-        else:
+        else: # Evaluamos que la clave no esta vacia.
             print("Debe escribir una clave")
             pass_valid = False
 
@@ -94,7 +92,7 @@ def main():
 
     # Escribo lo encriptado en un archivo con el nombre_encriptado.
     file_check = False
-    while not file_check: 
+    while not file_check: # Validamos que se pueda escribir en el nuevo archivo. 
         try:
             nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ")
             with open(nombre_encriptado,"w") as new_file:

@@ -1,4 +1,4 @@
-def descifrado_vi (texto: str,clave: str)->str:
+def descifrado_vi (texto: str,clave: str) -> str:
     """
     Utiliza el metodo de cifrado de Vigenère
     y desencrpita un texto o mensaje encriptado.
@@ -20,13 +20,13 @@ def descifrado_vi (texto: str,clave: str)->str:
     
     # Cambio los caracteres del texto a numeros, le resto el numero
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
-    index_clave=0
-    for idx_texto,element in enumerate(texto):
-        if ord('a') <= ord(element) <= ord('z'):
-            texto[idx_texto] = ord(element) - ord('a')
+    index_clave = 0 # Defino un contador para llevar la cuenta de letras validas.
+    for idx_texto, element in enumerate(texto): 
+        if ord('a') <= ord(element) <= ord('z'): # Valido que las letras del texto sean adecuadas al abecedario ingles.
+            texto[idx_texto] = ord(element) - ord('a') 
             texto[idx_texto] = chr(((texto[idx_texto] - clave[index_clave % len(clave)]) % 26) + ord('a'))
-            index_clave+=1
-    return "".join(texto)
+            index_clave += 1 # Aumento el contador de letras validas. 
+    return "".join(texto) 
 def main():
     """
     Se utiliza la funcion 'descifrado_vi' para recibir un archivo
@@ -49,40 +49,40 @@ def main():
     -> Generacion del archivo descencriptado con los datos recibidos.
     """
     # Pido la ruta del archivo a desencriptar y lo guardo, y valido que el archivo exista.
-    file_check = False
+    file_check = False # Defino una variable booleana para luego ir validando ciertos requisitos y poder pedir nuevamente el archivo.
     while not file_check: 
         try:
             text_dir = input("Ingrese la ruta del archivo a desencriptar: ")
-            file_check = True
+            file_check = True # Cambiamos el valor de 'file_check' para asumir que el archivo ingresado es correcto.
             # Guardo el contenido del archivo en text.
-            with open(text_dir, "r") as archivo:
-                text = archivo.read()
-                if len(text) == 0:
+            with open(text_dir, "r") as archivo: 
+                text = archivo.read() 
+                if len(text) == 0: 
                     print("El archivo está vacío")
-                    file_check = False
+                    file_check = False # Cambiamos el valor de 'file_check' para que vuelva a pedir el archivo.
         except FileNotFoundError: # Atajo el error si el archivo no existe.
             print("No se pudo abrir el archivo")
-            file_check = False
+            file_check = False 
         except PermissionError: # Atajo el error si hay falta de permisos.
             print("No tiene permisos para leer ese archivo.")
             file_check = False
 
     # Pido la clave a utilizar para desencriptar y evaluo su validez.
-    pass_valid = False
+    pass_valid = False 
     while not pass_valid: # Ciclo que permite volver a pedir la clave si esta no es adecuada.
         clave = input("Ingrese la clave a utilizar: ")
-        pass_valid = True
+        pass_valid = True # Cambiamos el valor de 'pass_valid' para asumir que la clave es adecuada.
         if clave != "":
             for letra in clave:
-                if not (ord('a') <= ord(letra) <= ord('z')):
+                if not (ord('a') <= ord(letra) <= ord('z')): 
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
-                    pass_valid=False
+                    pass_valid = False
                     break
                 elif letra.isupper():
                     print("La clave no puede contener mayusuculas.")
                     pass_valid = False
                     break
-        else:
+        else: # Evaluamos que la clave no esta vacia.
             print("Debe escribir una clave")
             pass_valid = False
 
@@ -91,7 +91,7 @@ def main():
 
     # Escribo lo desencriptado en un archivo con el nombre_desencriptado.
     file_check = False
-    while not file_check: 
+    while not file_check: # Validamos que se pueda escribir en el nuevo archivo. 
         try:
             nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
             with open(nombre_desencriptado,"w") as new_file:
