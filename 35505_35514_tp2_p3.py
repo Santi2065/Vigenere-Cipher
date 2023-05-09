@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-ABECEDARIO="abcdefghijklmnopqrstuvwxyz"
+ABECEDARIO = "abcdefghijklmnopqrstuvwxyz"
 ENGLISH_LETTERS_FRECUENCIES = {
     "a": 0.08167, "b": 0.01492, "c": 0.02782, "d": 0.04253, "e": 0.12702, "f": 0.02228,
     "g": 0.02015, "h": 0.06094, "i": 0.06966, "j": 0.00153, "k": 0.00772, "l": 0.04025,
@@ -45,11 +45,11 @@ def separador(largo_clave: int,text: list) ->str:
         text_separado -> Lista con sublistas de letras.
     """
     text_separado = [] # Creamos una lista vacia que va a agrupar a las sublistas.
-    for n_lista in range(largo_clave): # Iteramos solo la cantidad de 'N' ingresadas por el usuario.
+    for n_lista in range(largo_clave): 
         sublista = [] # Lista auxiliar que permite almacenar los valores requeridos del texto.
-        for index in range(n_lista, len(text), largo_clave): # Iterador por cada 'N'.
+        for index in range(n_lista, len(text), largo_clave): 
             sublista.append(text[index]) # Se agrega la letra en el lugar 'N' a una sublista y se avanzan otros 'N' espacios.
-        text_separado.append(sublista) # Se inserta la sublista completa, y se pasa al siguiente 'N'
+        text_separado.append(sublista) 
     return text_separado
 
 # Se define una funcion que dado un texto, crea un diccionario con la cantidad de repeticiones de cada letra del abecedario ingles.
@@ -69,7 +69,7 @@ def cuento_repeticion(texto: str) ->dict:
 
     """
     cuento_letras = {letra: 0 for letra in ABECEDARIO} # Hago un diccionario de comprension para cada letra de 'abecedario'.
-    for letra in texto: # Iteracion para cada letra del texto.
+    for letra in texto: 
         cuento_letras[letra]+=1 # Aumento la frecuencia de cada letra a medida que itero en el texto.
     return cuento_letras # Devuelve el diccionario con las frecuencias de cada letra en el texto.
 
@@ -95,20 +95,20 @@ def calculo_ioc(texto: str) ->float:
 
 # Se define una funcion que dado un diccionario, crea otro diccionario con la frecuencia de cada letra en un texto. 
 def frecuencia(letras: dict, largo_texto:int) -> dict:
-    frecuencia = {letra: 0 for letra in ABECEDARIO} # Hago un diccionario de comprension para cada letra de 'abecedario'.
-    for key, value in letras.items(): # Entro a cada llave y valor del diccionario recibido.
+    frecuencia = {letra: 0 for letra in ABECEDARIO} # Hago un diccionario de comprension para cada letra de 'ABECEDARIO'.
+    for key, value in letras.items(): 
         frecuencia[key] = value / largo_texto # Reemplazo el valor del diccionario por la frecuencia calculada con la formula.
     return frecuencia # Devuelve el diccionario con cada una de las frecuencias de cada letra del abecedario ingles en un texto.
 
-# Se define una funcion que recibe un texto 
+# Se define una funcion que recibe un texto y un largo de clave.
 def ioc_promedio_clave(texto: str, largo_clave: int) ->float:
     cadena = separador(largo_clave, texto)
-    ioc_final=0
+    ioc_final = 0
     for lista in cadena:
         ioc_final+= calculo_ioc("".join(lista))
     return ioc_final/largo_clave
 
-def grafico(elementos:dict, y_label:str, x_label:str, titulo:str):
+def grafico(elementos: dict, y_label: str, x_label: str, titulo: str):
     plt.bar(list(elementos.keys()),(elementos.values()))
     plt.title(titulo)
     plt.ylabel(y_label)
@@ -130,26 +130,26 @@ def main():
     # Grafico ioc
     ioc_largos={n:ioc_promedio_clave(text,n) for n in range(1,31)}
     grafico(ioc_largos,"índice de coincidencia","","ioc")
-    plt.axhline(y=0.0686, color='black', linestyle='--', linewidth=2)
-    plt.axhline(y=0.0385, color='black', linestyle='--', linewidth=2)
+    plt.axhline(y = 0.0686, color ='black', linestyle='--', linewidth = 2)
+    plt.axhline(y = 0.0385, color ='black', linestyle='--', linewidth = 2)
     plt.show()
 
     # Graficos
-    largo_clave=5
-    if (largo_clave+1)%3==0:
-        columnas=((largo_clave+1)//3)
+    largo_clave = 5
+    if (largo_clave+1) % 3 == 0:
+        columnas=((largo_clave + 1) // 3)
     else:
-        columnas=((largo_clave+1)//3)+1
+        columnas=((largo_clave + 1) // 3) +1
     # Grafico en ingles
     plt.subplot(3,columnas,1)
     grafico(ENGLISH_LETTERS_FRECUENCIES,"Frecuencia","","Ingles")
     
     #resto de graficos
-    inicio=0
-    for largo in range(1,largo_clave+1):
-        plt.subplot(3,columnas,largo+1)
+    inicio = 0
+    for largo in range(1, largo_clave+1):
+        plt.subplot(3, columnas,largo+1)
         grafico(frecuencia(cuento_repeticion(divisor_de_texto(text,inicio,largo_clave)),len(divisor_de_texto(text,inicio,largo_clave))), "Frecuencia", "", f"Letra {largo} de la clave")
-        inicio+=1
+        inicio += 1
     plt.tight_layout()
     plt.show()
 
