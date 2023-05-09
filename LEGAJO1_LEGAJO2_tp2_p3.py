@@ -1,19 +1,4 @@
 import matplotlib.pyplot as plt
-"""
-una posible estructura para tu el programa:
-
-    1.Primero, puedes definir una función para calcular el índice de coincidencia (IoC) de un texto. Esta función tomará como argumento una cadena de texto y devolverá el IoC calculado según la fórmula que se proporciona en la consigna.
-
-    2.Luego, puedes definir una función para calcular el IoC promedio para un posible largo de clave. Esta función tomará como argumentos una cadena de texto y un entero que representa el posible largo de la clave. La función dividirá el texto en grupos con las letras separadas por n letras entre sí (donde n es el posible largo de la clave), calculará el IoC de cada uno de estos grupos y devolverá el promedio de estos resultados.
-
-    3.Después, puedes definir una función para generar el gráfico de barras del IoC en función del posible largo de la clave. Esta función tomará como argumento una cadena de texto y usará las funciones definidas anteriormente para calcular el IoC promedio para cada posible largo de clave entre 1 y 30. Luego, usará matplotlib para generar un gráfico de barras con estos datos.
-
-    4.A continuación, puedes definir una función para calcular las frecuencias de las letras en un texto. Esta función tomará como argumento una cadena de texto y devolverá un diccionario con las frecuencias de cada letra en el texto.
-
-    5.Luego, puedes definir una función para generar la figura que contiene 6 gráficos. Esta función tomará como argumento una cadena de texto y usará la función definida anteriormente para calcular las frecuencias de las letras en el idioma inglés y en el texto agrupando de a cada 5 letras. Luego, usará matplotlib para generar los 6 gráficos con estos datos.
-
-    5.Finalmente, puedes definir la función main que manejará la interacción con el usuario. Esta función pedirá al usuario la ruta del archivo encriptado, leerá el contenido del archivo y llamará a las funciones definidas anteriormente para generar los gráficos requeridos.
-"""
 ENGLISH_LETTERS_FRECUENCIES = {
     "a": 0.08167, "b": 0.01492, "c": 0.02782, "d": 0.04253, "e": 0.12702, "f": 0.02228,
     "g": 0.02015, "h": 0.06094, "i": 0.06966, "j": 0.00153, "k": 0.00772, "l": 0.04025,
@@ -102,11 +87,11 @@ def calculo_ioc(texto: str) ->float:
         ioc -> Indice de coincidencia del texto
     """
     cuento_letras = cuento_repeticion(texto) # Cuento la frecuencia de las letras del texto dado llamando a 'cuento_repeticion'.
-    n = len(texto) # Calculo el largo del texto y lo guardo en 'n' porque lo necesito para el calculo del ioc.
+    n = len(texto)
     ioc = 0 
     for value in cuento_letras.values(): # Entro en el diccionario creado y utilizo los 'value' para el calculo.
         ioc += value * (value - 1)
-    ioc /= n * (n - 1)
+    ioc /= (n * (n - 1))
     return ioc
 
 # Se define una funcion que dado un diccionario, crea otro diccionario con la frecuencia de cada letra en un texto. 
@@ -160,6 +145,8 @@ def main():
         inicio+=1
     plt.tight_layout()
     plt.show()
+    print(calculo_ioc(text))
+
 
 
 if __name__=="__main__":
