@@ -22,7 +22,7 @@ def cifrado_vi (texto: str, clave: str) -> str:
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
     index_clave=0
     for idx_texto,element in enumerate(texto):
-        if element.isalpha() and element != 'ñ':
+        if ord('a') <= ord(element) <= ord('z'):
             texto[idx_texto] = ord(element) - ord('a')
             texto[idx_texto] = chr(((texto[idx_texto] + clave [index_clave % len(clave)]) % 26) + ord('a'))
             index_clave+=1
