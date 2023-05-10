@@ -81,10 +81,6 @@ def main():
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
                     pass_valid = False
                     break
-                elif letra.isupper():
-                    print("La clave no puede contener mayusuculas.")
-                    pass_valid = False
-                    break
         else:
             print("Debe escribir una clave")
             pass_valid = False
