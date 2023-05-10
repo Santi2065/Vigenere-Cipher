@@ -1,3 +1,4 @@
+import os 
 def cifrado_vi (texto: str, clave: str) -> str:
     '''
     Utiliza el metodo de cifrado de Vigenère,
@@ -94,10 +95,17 @@ def main():
     file_check = False
     while not file_check: # Validamos que se pueda escribir en el nuevo archivo. 
         try:
+            file_check = True
             nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ") 
+            if os.path.isfile(nombre_encriptado):
+                resp = input(f"El archivo {nombre_encriptado} ya existe, ¿Quiere sobreescribir el archivo {nombre_encriptado}? y/n: ")
+                if resp == "n":
+                    file_check = False
+                elif resp != "y":
+                    print("Respuesta Invalida")
+                    file_check = False
             with open(nombre_encriptado,"w", encoding="utf-8") as new_file:
                 new_file.write(cifrado)
-            file_check = True
         except PermissionError: # Atajo el error si hay falta de permisos.
             print("No tiene permisos para escribir ese archivo.")
             file_check = False

@@ -1,3 +1,4 @@
+import os
 def descifrado_vi (texto: str,clave: str)->str:
     """
     Utiliza el metodo de cifrado de Vigenère
@@ -93,10 +94,17 @@ def main():
     file_check = False
     while not file_check: 
         try:
+            file_check = True
             nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
+            if os.path.isfile(nombre_desencriptado):
+                resp = input(f"El archivo {nombre_desencriptado} ya existe, ¿Quiere sobreescribir el archivo {nombre_desencriptado}? y/n: ")
+                if resp == "n":
+                    file_check = False
+                elif resp != "y":
+                    print("Respuesta Invalida")
+                    file_check = False
             with open(nombre_desencriptado,"w", encoding="utf-8") as new_file:
                 new_file.write(cifrado)
-            file_check = True
         except PermissionError: # Atajo el error si hay falta de permisos.
             print("No tiene permisos para escribir ese archivo.")
             file_check = False

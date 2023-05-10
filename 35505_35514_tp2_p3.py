@@ -193,12 +193,15 @@ def main():
             print("Esto es un directorio")# Atajo el error si es un directorio
             file_check = False
         
-    # Grafico del IOC
-    ioc_largos = {n: ioc_promedio_clave(text, n) for n in range(1, 31)}
-    grafico(ioc_largos, "Indice de coincidencia", "Largo de la clave", "IOC")
-    plt.axhline(y = 0.0686, color = 'black', linestyle = '--', linewidth = 1.5)
-    plt.axhline(y = 0.0385, color = 'black', linestyle = '--', linewidth = 1.5)
-    plt.show()
+    if len(text) < 60:
+        print("El texto no es suficientemente largo para graficar el Indice de Coincidencia")
+    else:
+        # Grafico del IOC
+        ioc_largos = {n: ioc_promedio_clave(text, n) for n in range(1, 31)}
+        grafico(ioc_largos, "Indice de coincidencia", "Largo de la clave", "IOC")
+        plt.axhline(y = 0.0686, color = 'black', linestyle = '--', linewidth = 1.5)
+        plt.axhline(y = 0.0385, color = 'black', linestyle = '--', linewidth = 1.5)
+        plt.show()
 
     # Graficos
     largo_clave = 5
