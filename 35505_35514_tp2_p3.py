@@ -29,12 +29,25 @@ def text_formatter(texto: str) -> str:
     clean_text = "".join(clean_text) # Transformo la lista en un texto solo con las letras adecuadas sin espacios.
     return clean_text
 
+# Se define una funcion que dada un texto, la separa en los lugares correspondientes a lo ingresado por el usuario como argumento.
 def text_divisor(text: str, inicio: int, largo_clave: int) -> str:
-    texto_final = []
+    """
+    La funcion text_divisor, recibe un texto y lo lee, guardando
+    los caracteres desde el inicio hasta el final que se encuentran
+    en los lugares del largo de clave y sus multiplos naturales.
+    -----------------------------------------------------------------
+    input: 
+        text -> Texto a separar
+        inicio -> Indice de letra de arranque
+        largo_clave -> Paso de separacion entre letra y letra
+    -----------------------------------------------------------------
+    output:
+        string con las letras agrupadas
+    """
+    texto_final = [] 
     for index in range(inicio, len(text), largo_clave):
-        texto_final.append(text[index])
+        texto_final.append(text[index]) # Guardamos en una lista todas las letras en los lugares correspondientes.
     return "".join(texto_final)
-
 
 # Se define una funcion text_multiple_division con el fin de crear una lista con 'N' sublistas, agrupadas por cada
 # letra del lugar 'N' y sus multiplos hasta el final del texto.
@@ -105,23 +118,58 @@ def frecuencia(letras: dict, largo_texto:int) -> dict:
         frecuencia[key] = value / largo_texto # Reemplazo el valor del diccionario por la frecuencia calculada con la formula.
     return frecuencia # Devuelve el diccionario con cada una de las frecuencias de cada letra del abecedario ingles en un texto.
 
-# Se define una funcion que recibe un texto 
+# Se define una funcion que recibe un texto, lo divide con la funcion 'text_multiple_division' y a cada segmento le calcula el IOC
+# sumandolos, y devuelve el promedio de la suma.
 def ioc_promedio_clave(texto: str, largo_clave: int) -> float:
+    """
+    La funcion ioc_promedio_clave recibe como argumento un texto y un 
+    largo de clave, y divide el texto en grupos con los caracteres con 
+    el largo de clave ingresado. Luego a cada segmento le calcula el 
+    Indice de Coincidencia y devuelve el promedio de su suma.
+    ---------------------------------------------------------------------
+    input:
+        texto -> Texto a separar y calcular IOC
+        largo_clave -> Grado de separacion (int)
+    ---------------------------------------------------------------------
+    output:
+        float con el promedio de la suma de IOC
+    """
     cadena = text_multiple_division(largo_clave, texto)
     ioc_final = 0
     for string in cadena:
         ioc_final += calculo_ioc(string)
     return ioc_final / largo_clave
 
+# Se define una funcion que recibe un diccionario con elementos, y los ubica en un grafico de barras.
 def grafico(elementos: dict, y_label: str = "", x_label: str = "", titulo: str = ""):
+    """
+    La funcion grafico, recibe 4 argumentos que le permite armar un grafico de barras.
+    Los argumentos para el grafico estan dados dentro del diccionario, tomando las
+    llaves y los valores para los ejes de coordenadas respectivamente.
+    ----------------------------------------------------------------------------------
+    input:
+        elementos -> Diccionario donde las keys van en el eje x y los values en el eje y
+        y_label -> Etiqueta del eje y (Ingresar "" si no se desea etiquetado)
+        x_label -> Etiqueta del eje x (Ingresar "" si no se desea etiquetado)
+        titulo -> Etiqueta del titulo del grafico (Ingresar "" si no se desea etiquetado)
+    """
     plt.bar((elementos.keys()),(elementos.values()))
     plt.title(titulo)
     plt.ylabel(y_label)
     plt.xlabel(x_label)
 
-
 def main():
-
+    """
+    La funcion main, pide el archivo encriptado ha analizar y formatea el texto de 
+    modo tal que sea analizable. Luego genera dos graficos. El primero con el calculo 
+    del IOC del texto, permitiendo descifrar el largo de la contraseña del texto
+    encriptado. Y el resto de graficos se crean en base al largo de la contraseña
+    definida en la variable 'largo_clave' que se encarga de imprimir el grafico
+    de las frecuencias de las letras en ingles definida en el diccionario
+    'ENGLISH_LETTERS_FRECUENCIES'. Los mismos sirven como guia para descifrar la 
+    contraseña en base a los otros graficos que representan cada letra de la 
+    contraseña.
+    """
     # Pido la ruta del archivo
     file_check = False
     while not file_check: 
@@ -147,7 +195,7 @@ def main():
         
     # Grafico del IOC
     ioc_largos = {n: ioc_promedio_clave(text, n) for n in range(1, 31)}
-    grafico(ioc_largos, "Indice de coincidencia", "", "IOC")
+    grafico(ioc_largos, "Indice de coincidencia", "Largo de la clave", "IOC")
     plt.axhline(y = 0.0686, color = 'black', linestyle = '--', linewidth = 1.5)
     plt.axhline(y = 0.0385, color = 'black', linestyle = '--', linewidth = 1.5)
     plt.show()
@@ -174,6 +222,5 @@ def main():
     plt.show()
 
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
