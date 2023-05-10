@@ -53,8 +53,8 @@ def main():
     file_check = False # Defino una variable booleana para luego ir validando ciertos requisitos y poder pedir nuevamente el archivo.
     while not file_check: 
         try: 
-            text_dir = input("Ingrese la ruta del archivo a encriptar: ")
-            file_check = True # Cambiamos el valor de 'file_check' para asumir que el archivo ingresado es correcto.
+            text_dir = input("Ingrese la ruta del archivo ha encriptar: ")
+            file_check = True
             # Guardo el contenido del archivo en text.
             with open(text_dir, "r") as archivo:
                 text = archivo.read()
@@ -66,6 +66,9 @@ def main():
             file_check = False
         except PermissionError: # Atajo el error si hay falta de permisos.
             print("No tiene permisos para leer ese archivo.")
+            file_check = False
+        except IsADirectoryError:
+            print("Esto es un directorio")# Atajo el error si es un directorio
             file_check = False
             
     # Pido la clave a utilizar para encriptar y evaluo su validez.
@@ -79,11 +82,7 @@ def main():
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
                     pass_valid = False
                     break
-                elif letra.isupper():
-                    print("La clave no puede contener mayusuculas.")
-                    pass_valid = False
-                    break
-        else: # Evaluamos que la clave no esta vacia.
+        else:
             print("Debe escribir una clave")
             pass_valid = False
 
@@ -94,7 +93,7 @@ def main():
     file_check = False
     while not file_check: # Validamos que se pueda escribir en el nuevo archivo. 
         try:
-            nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ")
+            nombre_encriptado = input("Ingrese la ruta del archivo encriptado: ") 
             with open(nombre_encriptado,"w") as new_file:
                 new_file.write(cifrado)
             file_check = True

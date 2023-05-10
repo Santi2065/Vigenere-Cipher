@@ -20,10 +20,10 @@ def descifrado_vi (texto: str,clave: str) -> str:
     
     # Cambio los caracteres del texto a numeros, le resto el numero
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
-    index_clave = 0 # Defino un contador para llevar la cuenta de letras validas.
-    for idx_texto, element in enumerate(texto): 
-        if ord('a') <= ord(element) <= ord('z'): # Valido que las letras del texto sean adecuadas al abecedario ingles.
-            texto[idx_texto] = ord(element) - ord('a') 
+    index_clave=0
+    for idx_texto,element in enumerate(texto):
+        if ord('a') <= ord(element) <= ord('z'):
+            texto[idx_texto] = ord(element) - ord('a')
             texto[idx_texto] = chr(((texto[idx_texto] - clave[index_clave % len(clave)]) % 26) + ord('a'))
             index_clave += 1 # Aumento el contador de letras validas. 
     return "".join(texto) 
@@ -66,6 +66,9 @@ def main():
         except PermissionError: # Atajo el error si hay falta de permisos.
             print("No tiene permisos para leer ese archivo.")
             file_check = False
+        except IsADirectoryError:
+            print("Esto es un directorio")# Atajo el error si es un directorio
+            file_check = False
 
     # Pido la clave a utilizar para desencriptar y evaluo su validez.
     pass_valid = False 
@@ -76,7 +79,7 @@ def main():
             for letra in clave:
                 if not (ord('a') <= ord(letra) <= ord('z')): 
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
-                    pass_valid = False
+                    pass_valid=False
                     break
                 elif letra.isupper():
                     print("La clave no puede contener mayusuculas.")

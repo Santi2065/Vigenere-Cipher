@@ -29,11 +29,18 @@ def text_formatter(texto: str) -> str:
     clean_text = "".join(clean_text) # Transformo la lista en un texto solo con las letras adecuadas sin espacios.
     return clean_text
 
-# Se define una funcion separador con el fin de crear una lista con 'N' sublistas, agrupadas por cada
+def text_divisor(text: str, inicio: int, largo_clave: int) -> str:
+    texto_final = []
+    for index in range(inicio, len(text), largo_clave):
+        texto_final.append(text[index])
+    return "".join(texto_final)
+
+
+# Se define una funcion text_multiple_division con el fin de crear una lista con 'N' sublistas, agrupadas por cada
 # letra del lugar 'N' y sus multiplos hasta el final del texto.
-def separador(largo_clave: int,text: list) ->str: 
+def text_multiple_division(largo_clave: int,text: list) -> list: 
     """
-    La funcion separador recibe dos argumentos que permite separar un texto en 
+    La funcion text_multiple_division recibe dos argumentos que permite separar un texto en 
     una lista con sublistas dentro. Cada sublista agrupa una serie de letras
     en ese 'N' lugar y luego avanza a la proxima posicion salteando de a 'N' espacios.
     ------------------------------------------------------------------------------
@@ -42,14 +49,12 @@ def separador(largo_clave: int,text: list) ->str:
         text -> Texto a separar
     ------------------------------------------------------------------------------
     output :
-        text_separado -> Lista con sublistas de letras.
+        text_separado -> Lista con strings.
     """
     text_separado = [] # Creamos una lista vacia que va a agrupar a las sublistas.
-    for n_lista in range(largo_clave): 
-        sublista = [] # Lista auxiliar que permite almacenar los valores requeridos del texto.
-        for index in range(n_lista, len(text), largo_clave): 
-            sublista.append(text[index]) # Se agrega la letra en el lugar 'N' a una sublista y se avanzan otros 'N' espacios.
-        text_separado.append(sublista) 
+    for n_lista in range(largo_clave): # Iteramos solo la cantidad de 'N' ingresadas por el usuario.
+        sublista = text_divisor(text, n_lista, largo_clave)
+        text_separado.append(sublista) # Se inserta la sublista completa, y se pasa al siguiente 'N'
     return text_separado
 
 # Se define una funcion que dado un texto, crea un diccionario con la cantidad de repeticiones de cada letra del abecedario ingles.
@@ -100,55 +105,70 @@ def frecuencia(letras: dict, largo_texto:int) -> dict:
         frecuencia[key] = value / largo_texto # Reemplazo el valor del diccionario por la frecuencia calculada con la formula.
     return frecuencia # Devuelve el diccionario con cada una de las frecuencias de cada letra del abecedario ingles en un texto.
 
-# Se define una funcion que recibe un texto y un largo de clave.
-def ioc_promedio_clave(texto: str, largo_clave: int) ->float:
-    cadena = separador(largo_clave, texto)
+# Se define una funcion que recibe un texto 
+def ioc_promedio_clave(texto: str, largo_clave: int) -> float:
+    cadena = text_multiple_division(largo_clave, texto)
     ioc_final = 0
-    for lista in cadena:
-        ioc_final+= calculo_ioc("".join(lista))
-    return ioc_final/largo_clave
+    for string in cadena:
+        ioc_final += calculo_ioc(string)
+    return ioc_final / largo_clave
 
-def grafico(elementos: dict, y_label: str, x_label: str, titulo: str):
-    plt.bar(list(elementos.keys()),(elementos.values()))
+def grafico(elementos: dict, y_label: str = "", x_label: str = "", titulo: str = ""):
+    plt.bar((elementos.keys()),(elementos.values()))
     plt.title(titulo)
     plt.ylabel(y_label)
     plt.xlabel(x_label)
 
-def divisor_de_texto(text:str,inicio:int,largo_clave)->str:
-    texto_final=[]
-    for index in range(inicio,len(text),largo_clave):
-        texto_final.append(text[index])
-    return "".join(texto_final)
 
 def main():
-    nombre_archivo = input("Ingrese el nombre del archivo que contiene el texto: ")
 
-    with open(nombre_archivo,'r') as texto:
-        text = texto.read()
-        text = text_formatter(text)
+    # Pido la ruta del archivo
+    file_check = False
+    while not file_check: 
+        try: 
+            text_dir = input("Ingrese el nombre del archivo que contiene el texto: ")
+            file_check = True
+            # Guardo el contenido del archivo en text.
+            with open(text_dir, "r") as archivo:
+                text = archivo.read()
+                text = text_formatter(text)
+                if len(text) == 0:
+                    print("El archivo está vacío")
+                    file_check = False
+        except FileNotFoundError: # Atajo el error si el archivo no existe.
+            print("No se encontro el archivo")
+            file_check = False
+        except PermissionError: # Atajo el error si hay falta de permisos.
+            print("No tiene permisos para leer ese archivo.")
+            file_check = False
+        except IsADirectoryError:
+            print("Esto es un directorio")# Atajo el error si es un directorio
+            file_check = False
         
-    # Grafico ioc
-    ioc_largos={n:ioc_promedio_clave(text,n) for n in range(1,31)}
-    grafico(ioc_largos,"índice de coincidencia","","ioc")
-    plt.axhline(y = 0.0686, color ='black', linestyle='--', linewidth = 2)
-    plt.axhline(y = 0.0385, color ='black', linestyle='--', linewidth = 2)
+    # Grafico del IOC
+    ioc_largos = {n: ioc_promedio_clave(text, n) for n in range(1, 31)}
+    grafico(ioc_largos, "Indice de coincidencia", "", "IOC")
+    plt.axhline(y = 0.0686, color = 'black', linestyle = '--', linewidth = 1.5)
+    plt.axhline(y = 0.0385, color = 'black', linestyle = '--', linewidth = 1.5)
     plt.show()
 
     # Graficos
     largo_clave = 5
-    if (largo_clave+1) % 3 == 0:
-        columnas=((largo_clave + 1) // 3)
+    if (largo_clave + 1) % 3 == 0:
+        columnas = ((largo_clave + 1) // 3)
     else:
-        columnas=((largo_clave + 1) // 3) +1
+        columnas = ((largo_clave + 1) // 3) + 1
+
     # Grafico en ingles
-    plt.subplot(3,columnas,1)
-    grafico(ENGLISH_LETTERS_FRECUENCIES,"Frecuencia","","Ingles")
+    plt.subplot( 3, columnas , 1)
+    grafico(ENGLISH_LETTERS_FRECUENCIES , "Frecuencia", "", "Ingles")
     
-    #resto de graficos
+    # Resto de graficos
     inicio = 0
-    for largo in range(1, largo_clave+1):
-        plt.subplot(3, columnas,largo+1)
-        grafico(frecuencia(cuento_repeticion(divisor_de_texto(text,inicio,largo_clave)),len(divisor_de_texto(text,inicio,largo_clave))), "Frecuencia", "", f"Letra {largo} de la clave")
+    for largo in range( 1, largo_clave + 1):
+        plt.subplot( 3, columnas , largo+1)
+        subtexto = text_divisor(text ,inicio ,largo_clave)
+        grafico(frecuencia(cuento_repeticion(subtexto), len(subtexto)), "Frecuencia", "", f"Letra {largo} de la clave")
         inicio += 1
     plt.tight_layout()
     plt.show()
