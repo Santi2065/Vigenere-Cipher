@@ -55,7 +55,7 @@ def main():
             text_dir = input("Ingrese la ruta del archivo a desencriptar: ")
             file_check = True
             # Guardo el contenido del archivo en text.
-            with open(text_dir, "r") as archivo:
+            with open(text_dir, "r", encoding="utf-8") as archivo:
                 text = archivo.read()
                 if len(text) == 0:
                     print("El archivo está vacío")
@@ -94,7 +94,7 @@ def main():
     while not file_check: 
         try:
             nombre_desencriptado = input("Ingrese el nombre del archivo desencriptado: ")
-            with open(nombre_desencriptado,"w") as new_file:
+            with open(nombre_desencriptado,"w", encoding="utf-8") as new_file:
                 new_file.write(cifrado)
             file_check = True
         except PermissionError: # Atajo el error si hay falta de permisos.
