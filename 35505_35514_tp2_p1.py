@@ -78,7 +78,8 @@ def main():
         pass_valid = True # Cambiamos el valor de 'pass_valid' para asumir que la clave es adecuada.
         if clave != "":
             for letra in clave:
-                if not letra.isalpha() or letra == "ñ":
+                letra=letra.lower()
+                if not (ord('a') <= ord(letra) <= ord('z')):
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
                     pass_valid = False
                     break
