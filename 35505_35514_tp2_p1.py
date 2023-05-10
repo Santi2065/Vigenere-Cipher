@@ -55,7 +55,7 @@ def main():
     file_check = False
     while not file_check: 
         try: 
-            text_dir = input("Ingrese la ruta del archivo a encriptar: ")
+            text_dir = input("Ingrese la ruta del archivo ha encriptar: ")
             file_check = True
             # Guardo el contenido del archivo en text.
             with open(text_dir, "r") as archivo:

@@ -76,10 +76,6 @@ def main():
             for letra in clave:
                 if not (ord('a') <= ord(letra) <= ord('z')):
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
-                    pass_valid=False
-                    break
-                elif letra.isupper():
-                    print("La clave no puede contener mayusuculas.")
                     pass_valid = False
                     break
         else:
