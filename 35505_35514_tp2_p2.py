@@ -66,6 +66,9 @@ def main():
         except PermissionError: # Atajo el error si hay falta de permisos.
             print("No tiene permisos para leer ese archivo.")
             file_check = False
+        except IsADirectoryError:
+            print("Esto es un directorio")# Atajo el error si es un directorio
+            file_check = False
 
     # Pido la clave a utilizar para desencriptar y evaluo su validez.
     pass_valid = False

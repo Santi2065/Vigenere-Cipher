@@ -141,6 +141,9 @@ def main():
         except PermissionError: # Atajo el error si hay falta de permisos.
             print("No tiene permisos para leer ese archivo.")
             file_check = False
+        except IsADirectoryError:
+            print("Esto es un directorio")# Atajo el error si es un directorio
+            file_check = False
         
     # Grafico del IOC
     ioc_largos = {n: ioc_promedio_clave(text, n) for n in range(1, 31)}
