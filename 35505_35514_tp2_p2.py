@@ -20,7 +20,7 @@ def descifrado_vi (texto: str,clave: str)->str:
     
     # Cambio los caracteres del texto a numeros, le resto el numero
     # de clave en la posicion correspondiente y transformo a char(letra) de vuelta.
-    index_clave=0
+    index_clave = 0
     for idx_texto,element in enumerate(texto):
         if ord('a') <= ord(element) <= ord('z'):
             texto[idx_texto] = ord(element) - ord('a')

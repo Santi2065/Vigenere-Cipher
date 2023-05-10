@@ -121,36 +121,52 @@ def grafico(elementos: dict, y_label: str = "", x_label: str = "", titulo: str =
 
 
 def main():
-    
-    nombre_archivo = input("Ingrese el nombre del archivo que contiene el texto: ")
 
-    with open(nombre_archivo,'r') as texto:
-        text = texto.read()
-        text = text_formatter(text)
+    # Pido la ruta del archivo
+    file_check = False
+    while not file_check: 
+        try: 
+            text_dir = input("Ingrese el nombre del archivo que contiene el texto: ")
+            file_check = True
+            # Guardo el contenido del archivo en text.
+            with open(text_dir, "r") as archivo:
+                text = archivo.read()
+                text = text_formatter(text)
+                if len(text) == 0:
+                    print("El archivo está vacío")
+                    file_check = False
+        except FileNotFoundError: # Atajo el error si el archivo no existe.
+            print("No se encontro el archivo")
+            file_check = False
+        except PermissionError: # Atajo el error si hay falta de permisos.
+            print("No tiene permisos para leer ese archivo.")
+            file_check = False
         
-    # Grafico ioc
-    ioc_largos={n:ioc_promedio_clave(text,n) for n in range(1,31)}
-    grafico(ioc_largos,"índice de coincidencia","","ioc")
-    plt.axhline(y=0.0686, color='black', linestyle='--', linewidth=2)
-    plt.axhline(y=0.0385, color='black', linestyle='--', linewidth=2)
+    # Grafico del IOC
+    ioc_largos = {n: ioc_promedio_clave(text, n) for n in range(1, 31)}
+    grafico(ioc_largos, "Indice de coincidencia", "", "IOC")
+    plt.axhline(y = 0.0686, color = 'black', linestyle = '--', linewidth = 1.5)
+    plt.axhline(y = 0.0385, color = 'black', linestyle = '--', linewidth = 1.5)
     plt.show()
 
     # Graficos
-    largo_clave=5
-    if (largo_clave+1)%3==0:
-        columnas=((largo_clave+1)//3)
+    largo_clave = 5
+    if (largo_clave + 1) % 3 == 0:
+        columnas = ((largo_clave + 1) // 3)
     else:
-        columnas=((largo_clave+1)//3)+1
+        columnas = ((largo_clave + 1) // 3) + 1
+
     # Grafico en ingles
-    plt.subplot(3,columnas,1)
-    grafico(ENGLISH_LETTERS_FRECUENCIES,"Frecuencia","","Ingles")
+    plt.subplot( 3, columnas , 1)
+    grafico(ENGLISH_LETTERS_FRECUENCIES , "Frecuencia", "", "Ingles")
     
-    #resto de graficos
-    inicio=0
-    for largo in range(1,largo_clave+1):
-        plt.subplot(3,columnas,largo+1)
-        grafico(frecuencia(cuento_repeticion(text_divisor(text,inicio,largo_clave)),len(text_divisor(text,inicio,largo_clave))), "Frecuencia", "", f"Letra {largo} de la clave")
-        inicio+=1
+    # Resto de graficos
+    inicio = 0
+    for largo in range( 1, largo_clave + 1):
+        plt.subplot( 3, columnas , largo+1)
+        subtexto = text_divisor(text ,inicio ,largo_clave)
+        grafico(frecuencia(cuento_repeticion(subtexto), len(subtexto)), "Frecuencia", "", f"Letra {largo} de la clave")
+        inicio += 1
     plt.tight_layout()
     plt.show()
 
