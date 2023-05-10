@@ -121,6 +121,7 @@ def grafico(elementos: dict, y_label: str = "", x_label: str = "", titulo: str =
 
 
 def main():
+    
     nombre_archivo = input("Ingrese el nombre del archivo que contiene el texto: ")
 
     with open(nombre_archivo,'r') as texto:
