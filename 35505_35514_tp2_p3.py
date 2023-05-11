@@ -193,18 +193,31 @@ def main():
             print("Esto es un directorio")# Atajo el error si es un directorio
             file_check = False
         
-    if len(text) < 60:
-        print("El texto no es suficientemente largo para graficar el Indice de Coincidencia")
-    else:
+    
         # Grafico del IOC
-        ioc_largos = {n: ioc_promedio_clave(text, n) for n in range(1, 31)}
-        grafico(ioc_largos, "Indice de coincidencia", "Largo de la clave", "IOC")
-        plt.axhline(y = 0.0686, color = 'black', linestyle = '--', linewidth = 1.5)
-        plt.axhline(y = 0.0385, color = 'black', linestyle = '--', linewidth = 1.5)
-        plt.show()
+    ioc_largos = {}
+    for indice in range (1, 31): 
+        if len(text)-indice >= indice:
+            ioc_largos [indice] = ioc_promedio_clave(text, indice)
+        else:
+            ioc_largos[indice] = 0        
+    grafico(ioc_largos, "Indice de coincidencia", "Largo de la clave", "IOC")
+    plt.axhline(y = 0.0686, color = 'black', linestyle = '--', linewidth = 1.5)
+    plt.axhline(y = 0.0385, color = 'black', linestyle = '--', linewidth = 1.5)
+    plt.show()
 
     # Graficos
+    argument_invalid = True
     largo_clave = 5
+    
+    # Descomentar si desea que le pregunte el largo de la clave
+    #while argument_invalid:
+    #    largo_clave = int(input("Ingrese el posible largo de la clave: "))
+    #    argument_invalid = False
+    #    if largo_clave > len(text):
+    #        print("Contraseña demasiado larga")
+    #        argument_invalid = True
+
     if (largo_clave + 1) % 3 == 0:
         columnas = ((largo_clave + 1) // 3)
     else:
