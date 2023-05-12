@@ -170,6 +170,12 @@ def grafico(elementos: dict, y_label: str = "", x_label: str = "", titulo: str =
     plt.ylabel(y_label)
     plt.xlabel(x_label)
 
+def forzar_clave(frecuencias: dict) -> str:
+    frequency_list = [values for values in frecuencias.values()]
+    max_idx = frequency_list.index(max(frequency_list))
+    letra_correcta = ABECEDARIO[max_idx - 4]
+    return letra_correcta
+
 def main():
     # Pido la ruta del archivo
     file_check = False
@@ -230,13 +236,17 @@ def main():
     
     # Resto de graficos
     inicio = 0
+    clave = ""
     for largo in range( 1, largo_clave + 1):
         plt.subplot( 3, columnas , largo+1)
         subtexto = text_divisor(text ,inicio ,largo_clave)
         grafico(frecuencia(cuento_repeticion(subtexto), len(subtexto)), "Frecuencia", "", f"Letra {largo} de la clave")
+        list_frecuencia = frecuencia(cuento_repeticion(subtexto), len(subtexto))
+        clave += forzar_clave(list_frecuencia)
         inicio += 1
     plt.tight_layout()
     plt.show()
+    print(f"La clave utilizada es {clave}")
 
 
 if __name__ == "__main__":

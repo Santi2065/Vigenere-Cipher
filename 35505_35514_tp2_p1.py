@@ -85,7 +85,7 @@ def main():
                 if not (ord('a') <= ord(letra) <= ord('z')):
                     print("La clave solo puede contener letras del alfabeto inglés y no puede contener espacios.")
                     pass_valid = False
-                    break
+                    break # Utilizo un break para que apenas encuentre una letra que no es adecuada, vuelva a pedir una nueva contraseña.
         else:
             print("Debe escribir una clave")
             pass_valid = False
