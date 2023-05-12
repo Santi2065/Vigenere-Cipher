@@ -1,4 +1,26 @@
-import os 
+import os
+
+"""
+    Se utiliza la funcion 'cifrado_vi' para recibir un archivo
+    y crear uno nuevo con el texto encriptado junto a la interaccion 
+    del usuario.
+    ------------------------------------------------------------------
+    No se reciben argumentos al llamar la funcion.
+    ------------------------------------------------------------------
+    Interaccion con el usuario:
+
+    -> Ruta del archivo ha encriptar
+    - Se validan ciertos requerimientos
+
+    -> Clave para encriptacion
+    - Se validan ciertos requerimientos
+
+    -> Ruta del nuevo archivo luego de ser encriptado
+    ------------------------------------------------------------------
+    Output:
+    -> Generacion del archivo encriptado con los datos recibidos.
+    """
+
 def cifrado_vi (texto: str, clave: str) -> str:
     '''
     Utiliza el metodo de cifrado de Vigenère,
@@ -30,26 +52,6 @@ def cifrado_vi (texto: str, clave: str) -> str:
     return "".join(texto)
 
 def main():
-    """
-    Se utiliza la funcion 'cifrado_vi' para recibir un archivo
-    y crear uno nuevo con el texto encriptado junto a la interaccion 
-    del usuario.
-    ------------------------------------------------------------------
-    No se reciben argumentos al llamar la funcion.
-    ------------------------------------------------------------------
-    Interaccion con el usuario:
-
-    -> Ruta del archivo ha encriptar
-    - Se validan ciertos requerimientos
-
-    -> Clave para encriptacion
-    - Se validan ciertos requerimientos
-
-    -> Ruta del nuevo archivo luego de ser encriptado
-    ------------------------------------------------------------------
-    Output:
-    -> Generacion del archivo encriptado con los datos recibidos.
-    """
     # Pido la ruta del archivo a encriptar y lo guardo, y valido que el archivo exista.
     file_check = False # Defino una variable booleana para luego ir validando ciertos requisitos y poder pedir nuevamente el archivo.
     while not file_check: 

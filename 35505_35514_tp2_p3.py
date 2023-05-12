@@ -1,4 +1,16 @@
 import matplotlib.pyplot as plt
+"""
+La funcion main, pide el archivo encriptado ha analizar y formatea el texto de 
+modo tal que sea analizable. Luego genera dos graficos. El primero con el calculo 
+del IOC del texto, permitiendo descifrar el largo de la contraseña del texto
+encriptado. Y el resto de graficos se crean en base al largo de la contraseña
+definida en la variable 'largo_clave' que se encarga de imprimir el grafico
+de las frecuencias de las letras en ingles definida en el diccionario
+'ENGLISH_LETTERS_FRECUENCIES'. Los mismos sirven como guia para descifrar la 
+contraseña en base a los otros graficos que representan cada letra de la 
+contraseña.
+"""
+
 ABECEDARIO = "abcdefghijklmnopqrstuvwxyz"
 ENGLISH_LETTERS_FRECUENCIES = {
     "a": 0.08167, "b": 0.01492, "c": 0.02782, "d": 0.04253, "e": 0.12702, "f": 0.02228,
@@ -159,17 +171,6 @@ def grafico(elementos: dict, y_label: str = "", x_label: str = "", titulo: str =
     plt.xlabel(x_label)
 
 def main():
-    """
-    La funcion main, pide el archivo encriptado ha analizar y formatea el texto de 
-    modo tal que sea analizable. Luego genera dos graficos. El primero con el calculo 
-    del IOC del texto, permitiendo descifrar el largo de la contraseña del texto
-    encriptado. Y el resto de graficos se crean en base al largo de la contraseña
-    definida en la variable 'largo_clave' que se encarga de imprimir el grafico
-    de las frecuencias de las letras en ingles definida en el diccionario
-    'ENGLISH_LETTERS_FRECUENCIES'. Los mismos sirven como guia para descifrar la 
-    contraseña en base a los otros graficos que representan cada letra de la 
-    contraseña.
-    """
     # Pido la ruta del archivo
     file_check = False
     while not file_check: 
@@ -212,7 +213,7 @@ def main():
     
     # Descomentar si desea que le pregunte el largo de la clave
     #while argument_invalid:
-    #    largo_clave = int(input("Ingrese el posible largo de la clave: "))
+    #   largo_clave = int(input("Ingrese el posible largo de la clave: "))
     #    argument_invalid = False
     #    if largo_clave > len(text):
     #        print("Contraseña demasiado larga")
@@ -240,3 +241,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
