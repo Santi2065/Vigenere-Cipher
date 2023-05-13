@@ -109,7 +109,10 @@ def main():
             with open(nombre_encriptado,"w", encoding="utf-8") as new_file:
                 new_file.write(cifrado)
         except PermissionError: # Atajo el error si hay falta de permisos.
-            print("No tiene permisos para escribir ese archivo.")
+            print("No tiene permisos para escribir ese archivo")
+            file_check = False
+        except FileNotFoundError: # Atajo el error si se ingresa un directorio que no existe.
+            print("Directorio invalido")
             file_check = False
 
 if __name__ == "__main__":

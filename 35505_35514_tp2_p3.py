@@ -246,9 +246,8 @@ def main():
         inicio += 1
     plt.tight_layout()
     plt.show()
-    print(f"La clave utilizada es {clave}")
+    print(f"Una posible clave utilizada es {clave}")
 
 
 if __name__ == "__main__":
     main()
-
