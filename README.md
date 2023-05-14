@@ -1,4 +1,4 @@
-# TP_2_PC
+# TP_Vigenere_cipher
 1 — Encriptador#
 
 Se debe escribir un programa que le pida al usuario el path a un archivo en texto plano, por ejemplo plain.txt y, con una clave solicitada al usuario,
