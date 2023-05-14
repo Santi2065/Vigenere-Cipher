@@ -198,7 +198,7 @@ def main():
             text_dir = input("Ingrese el nombre del archivo que contiene el texto: ")
             file_check = True
             # Guardo el contenido del archivo en text.
-            with open(text_dir, "r") as archivo:
+            with open(text_dir, "r", encoding="utf-8") as archivo:
                 text = archivo.read()
                 text = text_formatter(text)
                 if len(text) == 0:
@@ -244,27 +244,29 @@ def main():
     #        print("Debe ingresar solo numeros enteros.")
     #        argument_invalid = True
 
-    # Organizamos los cuadros para que se acomoden de manera correcta. 
+    # Definimos la cantidad de columnas segun la cantidad de graficos
     if (largo_clave + 1) % 3 == 0:
         columnas = ((largo_clave + 1) // 3)
     else:
         columnas = ((largo_clave + 1) // 3) + 1
 
     # Grafico en ingles
-    plt.subplot( 3, columnas , 1)
+    plt.subplot( 3, columnas , 1) # asignamos la posicion del grafico "Ingles"
     grafico(ENGLISH_LETTERS_FRECUENCIES , "Frecuencia", "", "Ingles")
     
     # Resto de graficos
     inicio = 0
     clave = ""
     for largo in range(1, largo_clave + 1):
-        plt.subplot(3, columnas , largo + 1)
-        subtexto = text_divisor(text ,inicio ,largo_clave)
-        grafico(frecuencia(cuento_repeticion(subtexto), len(subtexto)), "Frecuencia", "", f"Letra {largo} de la clave")
+        plt.subplot(3, columnas , largo + 1) # Asignamos la posicion del grafico
+        subtexto = text_divisor(text ,inicio ,largo_clave) # Dividimos el texto tomando letras cada "largo de clave"
         list_frecuencia = frecuencia(cuento_repeticion(subtexto), len(subtexto))
+        grafico(list_frecuencia, "Frecuencia", "", f"Letra {largo} de la clave") # Graficamos la frecuencia de las letras
+        
+        # Vamos formando la posible clave
         clave += forzar_clave(list_frecuencia)
         inicio += 1
-    plt.tight_layout()
+    plt.tight_layout() # Separamos los graficos para que no queden pegados
     plt.show()
     print(f"Una posible clave utilizada es '{clave}'")
 

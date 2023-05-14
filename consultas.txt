@@ -1,3 +1,1 @@
 1) importo os para ver si hay archivo .isfile() para no sobreescribir?
-2) la ñ de windows se rompe
-3) escribo docstring en main?
