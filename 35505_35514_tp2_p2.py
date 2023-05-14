@@ -1,27 +1,6 @@
 import os
 
-"""
-    Se utiliza la funcion 'descifrado_vi' para recibir un archivo
-    y crear uno nuevo con el texto desencriptado junto a la interaccion 
-    del usuario.
-    -------------------------------------------------------------------
-    No se reciben argumentos al llamar la funcion.
-    -------------------------------------------------------------------
-    Interaccion con el usuario:
-
-    -> Ruta del archivo encriptado
-    - Se validan ciertos requerimientos
-
-    -> Clave para desencriptacion
-    - Se validan ciertos requerimientos
-
-    -> Ruta del nuevo archivo con el texto ya descencriptado
-    -------------------------------------------------------------------
-    Output:
-    -> Generacion del archivo descencriptado con los datos recibidos.
-    """
-
-def descifrado_vi (texto: str,clave: str)->str:
+def descifrado_vi (texto: str,clave: str) ->str:
     """
     Utiliza el metodo de cifrado de Vigenère
     y desencrpita un texto o mensaje encriptado.
@@ -50,6 +29,13 @@ def descifrado_vi (texto: str,clave: str)->str:
             texto[idx_texto] = chr(((texto[idx_texto] - clave[index_clave % len(clave)]) % 26) + ord('a'))
             index_clave += 1
     return "".join(texto)
+
+"""
+Se utiliza la funcion 'cifrado_vi' para recibir un archivo y crear uno nuevo con el texto encriptado junto a la interaccion 
+del usuario. En principio, al llamar la funcion main del programa, no se reciben argumentos de entrada. Luego, se ingresa 
+la ruta del archivo a encriptar y su respectiva clave. Ambas deben cumplir ciertos requerimientos, y de ser adecuadas, se 
+pide al usuario la ruta del archivo donde se va a guardar el texto encriptado.
+"""
 def main():
     # Pido la ruta del archivo a desencriptar y lo guardo, y valido que el archivo exista.
     file_check = False

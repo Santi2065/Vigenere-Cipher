@@ -1,26 +1,5 @@
 import os
 
-"""
-    Se utiliza la funcion 'cifrado_vi' para recibir un archivo
-    y crear uno nuevo con el texto encriptado junto a la interaccion 
-    del usuario.
-    ------------------------------------------------------------------
-    No se reciben argumentos al llamar la funcion.
-    ------------------------------------------------------------------
-    Interaccion con el usuario:
-
-    -> Ruta del archivo ha encriptar
-    - Se validan ciertos requerimientos
-
-    -> Clave para encriptacion
-    - Se validan ciertos requerimientos
-
-    -> Ruta del nuevo archivo luego de ser encriptado
-    ------------------------------------------------------------------
-    Output:
-    -> Generacion del archivo encriptado con los datos recibidos.
-    """
-
 def cifrado_vi (texto: str, clave: str) -> str:
     '''
     Utiliza el metodo de cifrado de Vigenère,
@@ -51,6 +30,12 @@ def cifrado_vi (texto: str, clave: str) -> str:
             index_clave += 1 # Aumento el contador de letras validas. 
     return "".join(texto)
 
+"""
+Se utiliza la funcion 'cifrado_vi' para recibir un archivo y crear uno nuevo con el texto encriptado junto a la interaccion 
+del usuario. En principio, al llamar la funcion main del programa, no se reciben argumentos de entrada. Luego, se ingresa 
+la ruta del archivo a encriptar y su respectiva clave. Ambas deben cumplir ciertos requerimientos, y de ser adecuadas, se 
+pide al usuario la ruta del archivo donde se va a guardar el texto encriptado.
+"""
 def main():
     # Pido la ruta del archivo a encriptar y lo guardo, y valido que el archivo exista.
     file_check = False # Defino una variable booleana para luego ir validando ciertos requisitos y poder pedir nuevamente el archivo.

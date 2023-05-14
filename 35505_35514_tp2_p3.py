@@ -1,15 +1,4 @@
 import matplotlib.pyplot as plt
-"""
-La funcion main, pide el archivo encriptado ha analizar y formatea el texto de 
-modo tal que sea analizable. Luego genera dos graficos. El primero con el calculo 
-del IOC del texto, permitiendo descifrar el largo de la contraseña del texto
-encriptado. Y el resto de graficos se crean en base al largo de la contraseña
-definida en la variable 'largo_clave' que se encarga de imprimir el grafico
-de las frecuencias de las letras en ingles definida en el diccionario
-'ENGLISH_LETTERS_FRECUENCIES'. Los mismos sirven como guia para descifrar la 
-contraseña en base a los otros graficos que representan cada letra de la 
-contraseña.
-"""
 
 ABECEDARIO = "abcdefghijklmnopqrstuvwxyz"
 ENGLISH_LETTERS_FRECUENCIES = {
@@ -146,7 +135,7 @@ def ioc_promedio_clave(texto: str, largo_clave: int) -> float:
     output:
         float con el promedio de la suma de IOC
     """
-    cadena = text_multiple_division(largo_clave, texto)
+    cadena = text_multiple_division(largo_clave, texto) # Dividimos el texto en grupos con dicha funcion.
     ioc_final = 0
     for string in cadena:
         ioc_final += calculo_ioc(string)
@@ -170,11 +159,33 @@ def grafico(elementos: dict, y_label: str = "", x_label: str = "", titulo: str =
     plt.ylabel(y_label)
     plt.xlabel(x_label)
 
+# Se define una funcion que recibe un diccionario y evalua el indice con el valor maximo, y devuelve la llave de ese indice - 4.(Letra de la clave)
 def forzar_clave(frecuencias: dict) -> str:
+    """
+    La funcion 'forzar_clave' recibe un diccionario el cual contiene 
+    cada letra del abecedario ingles junto a la frecuencia de las 
+    mismas y devuelve la letra en el indice con el valor maximo de los 
+    valores pero disminuido en 4. 
+    ----------------------------------------------------------------
+    input:
+        frecuencias -> diccionario con frecuencias del abecedario
+    ----------------------------------------------------------------
+    output:
+        letra_correcta -> letra en el indice nombrado anteriormente
+    """
     frequency_list = [values for values in frecuencias.values()]
-    max_idx = frequency_list.index(max(frequency_list))
-    letra_correcta = ABECEDARIO[max_idx - 4]
+    max_idx = frequency_list.index(max(frequency_list)) # Busco el indice con el valor maximo.
+    letra_correcta = ABECEDARIO[max_idx - 4] # Disminuyo el indice y encuentro la letra correcta.
     return letra_correcta
+
+"""
+La funcion main, pide el archivo encriptado ha analizar y formatea el texto de modo tal que sea analizable. 
+Luego genera dos graficos. El primero con el calculo del IOC del texto, permitiendo descifrar el largo de la 
+contraseña del texto encriptado. Luego, el resto de graficos se crean en base al largo de la contraseña definida 
+en la variable 'largo_clave' que se encarga de imprimir el grafico de las frecuencias de las letras en ingles 
+definida en el diccionario 'ENGLISH_LETTERS_FRECUENCIES'. Los mismos sirven como guia para descifrar la contraseña 
+en base a los otros graficos que representan cada letra de la contraseña.
+"""
 
 def main():
     # Pido la ruta del archivo
@@ -205,7 +216,7 @@ def main():
     ioc_largos = {}
     for indice in range (1, 31): 
         if len(text)-indice >= indice:
-            ioc_largos [indice] = ioc_promedio_clave(text, indice)
+            ioc_largos [indice] = ioc_promedio_clave(text, indice) # Armamos para cada indice su respectivo grafico.
         else:
             ioc_largos[indice] = 0        
     grafico(ioc_largos, "Indice de coincidencia", "Largo de la clave", "IOC")
@@ -225,6 +236,7 @@ def main():
     #        print("Contraseña demasiado larga")
     #        argument_invalid = True
 
+    # Organizamos los cuadros para que se acomoden de manera correcta. 
     if (largo_clave + 1) % 3 == 0:
         columnas = ((largo_clave + 1) // 3)
     else:
@@ -237,8 +249,8 @@ def main():
     # Resto de graficos
     inicio = 0
     clave = ""
-    for largo in range( 1, largo_clave + 1):
-        plt.subplot( 3, columnas , largo+1)
+    for largo in range(1, largo_clave + 1):
+        plt.subplot(3, columnas , largo + 1)
         subtexto = text_divisor(text ,inicio ,largo_clave)
         grafico(frecuencia(cuento_repeticion(subtexto), len(subtexto)), "Frecuencia", "", f"Letra {largo} de la clave")
         list_frecuencia = frecuencia(cuento_repeticion(subtexto), len(subtexto))
@@ -246,7 +258,7 @@ def main():
         inicio += 1
     plt.tight_layout()
     plt.show()
-    print(f"Una posible clave utilizada es {clave}")
+    print(f"Una posible clave utilizada es '{clave}'")
 
 
 if __name__ == "__main__":
