@@ -165,7 +165,10 @@ def forzar_clave(frecuencias: dict) -> str:
     La funcion 'forzar_clave' recibe un diccionario el cual contiene 
     cada letra del abecedario ingles junto a la frecuencia de las 
     mismas y devuelve la letra en el indice con el valor maximo de los 
-    valores pero disminuido en 4. 
+    valores pero disminuido en 4. Esto se hace ya que se sabe que el 
+    pico mayor de frecuencias en el abecedario ingles es la 'e', y 
+    encontrando ese pico y disminuyendo el indice en 4 posiciones, 
+    se puede llegar a descifrar el corrimiento de los textos cifrados.
     ----------------------------------------------------------------
     input:
         frecuencias -> diccionario con frecuencias del abecedario
@@ -225,15 +228,20 @@ def main():
     plt.show()
 
     # Graficos
-    argument_invalid = True
+    
     largo_clave = 5
     
     # Descomentar si desea que le pregunte el largo de la clave
+    # argument_invalid = True
     #while argument_invalid:
-    #   largo_clave = int(input("Ingrese el posible largo de la clave: "))
-    #    argument_invalid = False
-    #    if largo_clave > len(text):
-    #        print("Contraseña demasiado larga")
+    #   try:
+    #        largo_clave = int(input("Ingrese el posible largo de la clave: "))
+    #        argument_invalid = False
+    #        if largo_clave > len(text):
+    #            print("Contraseña demasiado larga.")
+    #            argument_invalid = True
+    #    except:
+    #        print("Debe ingresar solo numeros enteros.")
     #        argument_invalid = True
 
     # Organizamos los cuadros para que se acomoden de manera correcta. 
