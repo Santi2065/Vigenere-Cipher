@@ -22,4 +22,6 @@ Identifies the key length by analyzing the IoC graph and performs frequency anal
 
 **Note:** Make sure to install the required library `matplotlib` by running `pip install matplotlib` in your terminal.
 
+![Ioc-Graph](/Images/Ioc_graph.png)
+
 Feel free to contribute and enhance the Vigenere-cipher tool!
