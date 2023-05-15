@@ -24,4 +24,6 @@ Identifies the key length by analyzing the IoC graph and performs frequency anal
 
 ![Ioc-Graph](/Images/Ioc_graph.png)
 
+![Password-graph](/Images/Pass_graph.png)
+
 Feel free to contribute and enhance the Vigenere-cipher tool!
