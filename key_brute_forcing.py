@@ -229,20 +229,20 @@ def main():
 
     # Graficos
     
-    largo_clave = 5
+    #largo_clave = 5
     
-    # Descomentar si desea que le pregunte el largo de la clave
-    #argument_invalid = True
-    #while argument_invalid:
-    #    try:
-    #        largo_clave = int(input("Ingrese el posible largo de la clave: "))
-    #        argument_invalid = False
-    #        if largo_clave > len(text):
-    #            print("Contraseña demasiado larga.")
-    #            argument_invalid = True
-    #    except:
-    #       print("Debe ingresar solo numeros enteros.")
-    #        argument_invalid = True
+     #Descomentar si desea que le pregunte el largo de la clave
+    argument_invalid = True
+    while argument_invalid:
+        try:
+            largo_clave = int(input("Ingrese el posible largo de la clave: "))
+            argument_invalid = False
+            if largo_clave > len(text):
+                print("Contraseña demasiado larga.")
+                argument_invalid = True
+        except:
+            print("Debe ingresar solo numeros enteros.")
+            argument_invalid = True
 
     # Definimos la cantidad de columnas segun la cantidad de graficos
     if (largo_clave + 1) % 3 == 0:
