@@ -1,0 +1,35 @@
+# Paper-style figures (Latin Modern if installed, else DejaVu Serif)
+font.family: serif
+font.serif: Latin Modern Roman, CMU Serif, DejaVu Serif
+font.monospace: Latin Modern Mono, DejaVu Sans Mono
+mathtext.fontset: cm
+font.size: 10
+axes.titlesize: 10
+axes.labelsize: 10
+legend.fontsize: 8.5
+xtick.labelsize: 8.5
+ytick.labelsize: 8.5
+axes.linewidth: 0.6
+axes.edgecolor: 1a1a1a
+axes.labelcolor: 1a1a1a
+axes.prop_cycle: cycler('color', ['1b4f8a', 'c23b22', '2e7d32', '6a4c93', 'd48a00', '4d4d4d'])
+axes.grid: False
+xtick.direction: in
+ytick.direction: in
+xtick.top: True
+ytick.right: True
+xtick.major.width: 0.6
+ytick.major.width: 0.6
+xtick.minor.width: 0.4
+ytick.minor.width: 0.4
+lines.linewidth: 1.2
+lines.markersize: 4
+legend.frameon: False
+figure.facecolor: white
+axes.facecolor: white
+savefig.facecolor: white
+savefig.bbox: tight
+savefig.pad_inches: 0.12
+svg.fonttype: path
+svg.hashsalt: paper
+image.cmap: viridis
