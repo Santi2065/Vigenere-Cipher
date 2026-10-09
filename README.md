@@ -12,7 +12,7 @@ Universidad de San Andrés · *Computational Thinking* · First semester 2023 ·
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/figures/trajectory-dark.svg">
-  <img src="docs/figures/trajectory.svg" width="92%" alt="Academic timeline 2022–2026; this project is milestone 3 of 23, Computational Thinking, 1st semester 2023.">
+  <img src="docs/figures/trajectory.svg" width="92%" alt="Academic timeline 2022–2026; this project is milestone 4 of 23, Computational Thinking, 1st semester 2023.">
 </picture>
 
 </div>
@@ -98,6 +98,6 @@ python docs/figures/make_figures.py   # Figures 1-2 and the numbers in Table 1
   title        = {Breaking the Vigen{\`e}re Cipher with the Index of Coincidence},
   year         = {2023},
   howpublished = {Universidad de San Andr{\'e}s, Computational Thinking},
-  url          = {https://github.com/Santi2065/Vigenere-Cipher}
+  url          = {https://github.com/Santi2065/vigenere-cryptanalysis}
 }
 ```

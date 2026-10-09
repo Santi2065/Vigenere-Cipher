@@ -113,7 +113,7 @@ z
    </g>
    <g id="line2d_15">
     <g clip-path="url(#p8eabf06597)">
-     <use xlink:href="#mcdd4bfc3ac" x="128.875989" y="45.65376" style="fill: #bdbdbd; stroke: #ffffff; stroke-width: 0.5"/>
+     <use xlink:href="#mcdd4bfc3ac" x="113.955728" y="45.65376" style="fill: #bdbdbd; stroke: #ffffff; stroke-width: 0.5"/>
     </g>
    </g>
    <g id="line2d_16">
@@ -1034,7 +1034,7 @@ L 124.826204 18.98208
 " clip-path="url(#p8eabf06597)" style="fill: none; stroke: #1b4f8a; stroke-width: 0.7; stroke-linecap: square"/>
    </g>
    <g id="text_8">
-    <!-- Milestone 3 of 23  ·  Computational Thinking  (1C 2023) -->
+    <!-- Milestone 4 of 23  ·  Computational Thinking  (1C 2023) -->
     <g style="fill: #1b4f8a" transform="translate(120.145505 17.078045) scale(0.088 -0.088)">
      <defs>
       <path id="LMRoman10-Bold-4a" d="M 6726 0 
@@ -1221,29 +1221,29 @@ L 3936 0
 z
 " transform="scale(0.015625)"/>
       <path id="LMRoman10-Bold-67" transform="scale(0.015625)"/>
-      <path id="LMRoman10-Bold-6a" d="M 3366 1152 
-C 3366 1504 3181 2054 2253 2253 
-C 2694 2387 3162 2752 3162 3302 
-C 3162 3795 2675 4192 1773 4192 
-C 1011 4192 512 3782 512 3270 
-C 512 2995 710 2822 954 2822 
-C 1242 2822 1402 3027 1402 3264 
-C 1402 3635 1056 3706 1030 3712 
-C 1254 3891 1536 3942 1734 3942 
-C 2266 3942 2285 3533 2285 3322 
-C 2285 3238 2278 2400 1613 2362 
-C 1350 2349 1338 2342 1306 2336 
-C 1242 2330 1229 2266 1229 2227 
-C 1229 2112 1293 2112 1408 2112 
-L 1690 2112 
-C 2387 2112 2387 1485 2387 1158 
-C 2387 858 2387 205 1722 205 
-C 1555 205 1222 230 915 422 
-C 1126 480 1286 640 1286 902 
-C 1286 1190 1082 1389 800 1389 
-C 531 1389 307 1216 307 890 
-C 307 314 928 -70 1754 -70 
-C 2899 -70 3366 570 3366 1152 
+      <path id="LMRoman10-Bold-39" d="M 3469 0 
+L 3469 301 
+L 2848 301 
+L 2848 998 
+L 3469 998 
+L 3469 1299 
+L 2848 1299 
+L 2848 3994 
+C 2848 4166 2835 4198 2656 4198 
+C 2522 4198 2515 4192 2438 4096 
+L 205 1299 
+L 205 998 
+L 2048 998 
+L 2048 301 
+L 1331 301 
+L 1331 0 
+C 1574 19 2157 19 2432 19 
+C 2688 19 3245 19 3469 0 
+z
+M 2118 1299 
+L 538 1299 
+L 2118 3283 
+L 2118 1299 
 z
 " transform="scale(0.015625)"/>
       <path id="LMRoman10-Bold-37" d="M 2797 3923 
@@ -1292,6 +1292,31 @@ C 365 256 365 243 365 115
 L 365 0 
 L 3110 0 
 L 3309 1421 
+z
+" transform="scale(0.015625)"/>
+      <path id="LMRoman10-Bold-6a" d="M 3366 1152 
+C 3366 1504 3181 2054 2253 2253 
+C 2694 2387 3162 2752 3162 3302 
+C 3162 3795 2675 4192 1773 4192 
+C 1011 4192 512 3782 512 3270 
+C 512 2995 710 2822 954 2822 
+C 1242 2822 1402 3027 1402 3264 
+C 1402 3635 1056 3706 1030 3712 
+C 1254 3891 1536 3942 1734 3942 
+C 2266 3942 2285 3533 2285 3322 
+C 2285 3238 2278 2400 1613 2362 
+C 1350 2349 1338 2342 1306 2336 
+C 1242 2330 1229 2266 1229 2227 
+C 1229 2112 1293 2112 1408 2112 
+L 1690 2112 
+C 2387 2112 2387 1485 2387 1158 
+C 2387 858 2387 205 1722 205 
+C 1555 205 1222 230 915 422 
+C 1126 480 1286 640 1286 902 
+C 1286 1190 1082 1389 800 1389 
+C 531 1389 307 1216 307 890 
+C 307 314 928 -70 1754 -70 
+C 2899 -70 3366 570 3366 1152 
 z
 " transform="scale(0.015625)"/>
       <path id="LMRoman10-Bold-1e6" d="M 3360 2195 
@@ -1629,7 +1654,7 @@ z
      <use xlink:href="#LMRoman10-Bold-4d" transform="translate(373.328125 0)"/>
      <use xlink:href="#LMRoman10-Bold-32" transform="translate(437.234375 0)"/>
      <use xlink:href="#LMRoman10-Bold-67" transform="translate(489.9375 0)"/>
-     <use xlink:href="#LMRoman10-Bold-6a" transform="translate(528.234375 0)"/>
+     <use xlink:href="#LMRoman10-Bold-39" transform="translate(528.234375 0)"/>
      <use xlink:href="#LMRoman10-Bold-67" transform="translate(585.734375 0)"/>
      <use xlink:href="#LMRoman10-Bold-51" transform="translate(624.03125 0)"/>
      <use xlink:href="#LMRoman10-Bold-37" transform="translate(681.53125 0)"/>
